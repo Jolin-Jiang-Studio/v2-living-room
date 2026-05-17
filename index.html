@@ -1156,7 +1156,7 @@ function escapeAttr(s){return String(s).replace(/"/g,'&quot;')}
 /* ============================================================
    3) AI 算命
 ============================================================ */
-const FORTUNE_API = '/api/fortune'; // 你的后端,见 api-fortune.js
+const FORTUNE_API = 'https://message-bottle.vercel.app/api/fortune';
 document.getElementById('fortuneBtn').addEventListener('click',async ()=>{
   const birth = document.getElementById('fBirth').value;
   const sign = document.getElementById('fSign').value;
