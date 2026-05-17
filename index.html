@@ -235,10 +235,6 @@
   .fortune label{font-weight:800;font-size:13px;display:block;margin-bottom:4px}
   .fortune input,.fortune select{width:100%;padding:10px;border:2.5px solid var(--ink);font-family:inherit;font-size:14px;outline:none;background:var(--bg);box-shadow:3px 3px 0 var(--ink)}
   .fortune .result{margin-top:14px;border:3px dashed var(--ink);padding:18px;background:#fff8e1;font-size:15px;line-height:1.7;min-height:80px;white-space:pre-wrap}
-  .date-wrap{position:relative;display:block;}
-  .date-wrap input[type="date"]{width:100%;}
-  .date-wrap input[type="date"].has-value+.date-ph{display:none;}
-  .date-wrap .date-ph{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:#888;font-size:14px;font-family:inherit;}
 
   /* contact */
   .contact{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:center}
@@ -454,7 +450,7 @@
       <p style="font-size:14px;color:#444" data-i18n="fortune.d">填一下生日和今天的心情,AI 给你来一段"赛博占卜"。仅供娱乐,不要当真。</p>
       <div class="fortune" style="margin-top:14px;box-shadow:none;border:none;padding:0">
         <div class="form">
-          <div><label data-i18n="fortune.l1">生日</label><div class="date-wrap"><input type="date" id="fBirth"><span class="date-ph" data-i18n="fortune.birthPlaceholder">年/月/日</span></div></div>
+          <div><label data-i18n="fortune.l1">生日</label><input type="date" id="fBirth"></div>
           <div><label data-i18n="fortune.l2">星座</label>
             <select id="fSign">
               <option value="" data-i18n="fortune.opt.random">不知道,随机</option>
@@ -889,7 +885,7 @@ const I18N = {
     'fortune.t':'AI 算命小工具','fortune.d':'填一下生日和今天的心情,AI 给你来一段"赛博占卜"。仅供娱乐,不要当真。',
     'fortune.l1':'生日','fortune.l2':'星座','fortune.l3':'今天的心情',
     'fortune.opt.random':'不知道,随机','fortune.opt.aries':'白羊','fortune.opt.taurus':'金牛','fortune.opt.gemini':'双子','fortune.opt.cancer':'巨蟹','fortune.opt.leo':'狮子','fortune.opt.virgo':'处女','fortune.opt.libra':'天秤','fortune.opt.scorpio':'天蝎','fortune.opt.sagittarius':'射手','fortune.opt.capricorn':'摩羯','fortune.opt.aquarius':'水瓶','fortune.opt.pisces':'双鱼',
-    'fortune.mood.calm':'平淡','fortune.mood.happy':'开心','fortune.mood.anxious':'焦虑','fortune.mood.emo':'emo','fortune.mood.money':'想搞钱','fortune.mood.single':'单身想脱单','fortune.birthPlaceholder':'年/月/日',
+    'fortune.mood.calm':'平淡','fortune.mood.happy':'开心','fortune.mood.anxious':'焦虑','fortune.mood.emo':'emo','fortune.mood.money':'想搞钱','fortune.mood.single':'单身想脱单',
     'fortune.go':'🔮 开始占卜',
     'fortune.tip':'点上面按钮 ↑ 让宇宙告诉你点什么...',
     'lab.tbc':'下一个实验正在脑子里发酵 🧠',
@@ -966,7 +962,7 @@ const I18N = {
     'fortune.t':'AI Fortune Teller','fortune.d':"Drop your birthday and today's mood. AI gives you a cyber-fortune. Just for fun.",
     'fortune.l1':'Birthday','fortune.l2':'Sign','fortune.l3':"Today's mood",
     'fortune.opt.random':'Random','fortune.opt.aries':'Aries','fortune.opt.taurus':'Taurus','fortune.opt.gemini':'Gemini','fortune.opt.cancer':'Cancer','fortune.opt.leo':'Leo','fortune.opt.virgo':'Virgo','fortune.opt.libra':'Libra','fortune.opt.scorpio':'Scorpio','fortune.opt.sagittarius':'Sagittarius','fortune.opt.capricorn':'Capricorn','fortune.opt.aquarius':'Aquarius','fortune.opt.pisces':'Pisces',
-    'fortune.mood.calm':'Calm','fortune.mood.happy':'Happy','fortune.mood.anxious':'Anxious','fortune.mood.emo':'Meh','fortune.mood.money':'Want money','fortune.mood.single':'Single & looking','fortune.birthPlaceholder':'YYYY/MM/DD',
+    'fortune.mood.calm':'Calm','fortune.mood.happy':'Happy','fortune.mood.anxious':'Anxious','fortune.mood.emo':'Meh','fortune.mood.money':'Want money','fortune.mood.single':'Single & looking',
     'fortune.go':'🔮 Read my fortune',
     'fortune.tip':'Click ↑ and let the universe whisper...',
     'lab.tbc':'Next experiment fermenting in my brain 🧠',
@@ -1020,15 +1016,12 @@ function applyI18n(){
   // <title> tag
   const titleEl = document.querySelector('title[data-i18n]');
   if(titleEl){const t=I18N[LANG]['title'];if(t)document.title=t;}
-  // Toggle custom date placeholder visibility based on value
-  document.querySelectorAll('.date-wrap input[type="date"]').forEach(el=>{el.classList.toggle('has-value',!!el.value);});
+  // Force re-render date inputs so browser picks up new lang for native placeholder
+  document.querySelectorAll('input[type="date"]').forEach(el=>{const val=el.value;const clone=el.cloneNode(true);clone.value=val;el.parentNode.replaceChild(clone,el);});
   document.getElementById('langBtn').textContent = LANG==='zh' ? 'EN / 中' : '中 / EN';
 }
 document.getElementById('langBtn').addEventListener('click',()=>{LANG=LANG==='zh'?'en':'zh';localStorage.setItem('lang',LANG);applyI18n();renderPlaces();updatePlacesStats();});
 applyI18n();
-
-// Date input: toggle placeholder visibility on change
-document.getElementById('fBirth').addEventListener('input',function(){this.classList.toggle('has-value',!!this.value);});
 
 /* mobile burger */
 const burger=document.getElementById('burger'),navlist=document.getElementById('navlist');
