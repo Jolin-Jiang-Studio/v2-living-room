@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" />
-<title>小姜的网络客厅 · Jiang's Living Room</title>
+<title data-i18n="title">小姜的网络客厅 · Jiang's Living Room</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Bowlby+One&family=ZCOOL+KuaiLe&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -326,7 +326,7 @@
 <body>
 
 <nav class="nav">
-  <div class="logo"><span>小姜</span>的网络客厅</div>
+  <div class="logo"><span data-i18n="logo.brand">小姜</span><span data-i18n="logo.suffix">的网络客厅</span></div>
   <ul id="navlist">
     <li><a href="#about" data-i18n="nav.about">关于</a></li>
     <li><a href="#nav" data-i18n="nav.map">地图</a></li>
@@ -450,20 +450,20 @@
       <p style="font-size:14px;color:#444" data-i18n="fortune.d">填一下生日和今天的心情,AI 给你来一段"赛博占卜"。仅供娱乐,不要当真。</p>
       <div class="fortune" style="margin-top:14px;box-shadow:none;border:none;padding:0">
         <div class="form">
-          <div><label data-i18n="fortune.l1">生日</label><input type="date" id="fBirth"></div>
+          <div><label data-i18n="fortune.l1">生日</label><input type="date" id="fBirth" data-i18n-placeholder="fortune.birthPlaceholder"></div>
           <div><label data-i18n="fortune.l2">星座</label>
             <select id="fSign">
-              <option value="">不知道,随机</option>
-              <option>白羊</option><option>金牛</option><option>双子</option><option>巨蟹</option>
-              <option>狮子</option><option>处女</option><option>天秤</option><option>天蝎</option>
-              <option>射手</option><option>摩羯</option><option>水瓶</option><option>双鱼</option>
+              <option value="" data-i18n="fortune.opt.random">不知道,随机</option>
+              <option data-i18n="fortune.opt.aries">白羊</option><option data-i18n="fortune.opt.taurus">金牛</option><option data-i18n="fortune.opt.gemini">双子</option><option data-i18n="fortune.opt.cancer">巨蟹</option>
+              <option data-i18n="fortune.opt.leo">狮子</option><option data-i18n="fortune.opt.virgo">处女</option><option data-i18n="fortune.opt.libra">天秤</option><option data-i18n="fortune.opt.scorpio">天蝎</option>
+              <option data-i18n="fortune.opt.sagittarius">射手</option><option data-i18n="fortune.opt.capricorn">摩羯</option><option data-i18n="fortune.opt.aquarius">水瓶</option><option data-i18n="fortune.opt.pisces">双鱼</option>
             </select>
           </div>
           <div><label data-i18n="fortune.l3">今天的心情</label>
             <select id="fMood">
-              <option value="平淡">平淡</option><option value="开心">开心</option>
-              <option value="焦虑">焦虑</option><option value="emo">emo</option>
-              <option value="想搞钱">想搞钱</option><option value="单身想脱单">单身想脱单</option>
+              <option value="平淡" data-i18n="fortune.mood.calm">平淡</option><option value="开心" data-i18n="fortune.mood.happy">开心</option>
+              <option value="焦虑" data-i18n="fortune.mood.anxious">焦虑</option><option value="emo" data-i18n="fortune.mood.emo">emo</option>
+              <option value="想搞钱" data-i18n="fortune.mood.money">想搞钱</option><option value="单身想脱单" data-i18n="fortune.mood.single">单身想脱单</option>
             </select>
           </div>
         </div>
@@ -513,10 +513,10 @@
     <p class="lead" data-i18n="water.lead">这是装在 Chrome 上的实际界面预览。试试调整,下面会实时给一段"今日提醒计划"。</p>
     <label data-i18n="water.l1">提醒间隔</label>
     <select id="wInterval">
-      <option value="30">每 30 分钟</option>
-      <option value="45" selected>每 45 分钟</option>
-      <option value="60">每 60 分钟</option>
-      <option value="90">每 90 分钟</option>
+      <option value="30" data-i18n="water.interval.30">每 30 分钟</option>
+      <option value="45" data-i18n="water.interval.45" selected>每 45 分钟</option>
+      <option value="60" data-i18n="water.interval.60">每 60 分钟</option>
+      <option value="90" data-i18n="water.interval.90">每 90 分钟</option>
     </select>
     <div class="row">
       <div><label data-i18n="water.l2">每次毫升</label><input type="number" id="wMl" value="200" min="50" max="500" step="50"></div>
@@ -855,6 +855,8 @@ window.PLACES = {
 const I18N = {
   zh:{
     'nav.about':'关于','nav.map':'地图','nav.projects':'小工具','nav.lab':'实验室','nav.contact':'联系',
+    'logo.brand':'小姜','logo.suffix':'的网络客厅',
+    'title':'小姜的网络客厅 · Jiang\'s Living Room',
     'hero.greet':'推门进来 · 别客气',
     'hero.title':'这里是<br/><em>小姜</em>的<br/>网络客厅。',
     'hero.sub':'这里不是简历,也不是作品集 —— 只是我在互联网上的<b>一间小房子</b>。<br/>放了一些自己写的小工具、去过的地方、稀奇古怪的实验。<br/>欢迎随便逛、随便点、有话想说就<b>留言</b>给我 :)',
@@ -881,7 +883,10 @@ const I18N = {
     'places.lead':'中国首批 5A 景区 + 世界遗产 一共 104 个。绿色 = 我去过,灰色 = 还没去。点 "我也去过 ❤️" 给同款打 call,点 "💬" 在那个地方下面留言(支持匿名)。',
     'places.s1':'/104 已打卡','places.s2':'人和我同款足迹','places.s3':'条点位留言',
     'fortune.t':'AI 算命小工具','fortune.d':'填一下生日和今天的心情,AI 给你来一段"赛博占卜"。仅供娱乐,不要当真。',
-    'fortune.l1':'生日','fortune.l2':'星座','fortune.l3':'今天的心情','fortune.go':'🔮 开始占卜',
+    'fortune.l1':'生日','fortune.l2':'星座','fortune.l3':'今天的心情',
+    'fortune.opt.random':'不知道,随机','fortune.opt.aries':'白羊','fortune.opt.taurus':'金牛','fortune.opt.gemini':'双子','fortune.opt.cancer':'巨蟹','fortune.opt.leo':'狮子','fortune.opt.virgo':'处女','fortune.opt.libra':'天秤','fortune.opt.scorpio':'天蝎','fortune.opt.sagittarius':'射手','fortune.opt.capricorn':'摩羯','fortune.opt.aquarius':'水瓶','fortune.opt.pisces':'双鱼',
+    'fortune.mood.calm':'平淡','fortune.mood.happy':'开心','fortune.mood.anxious':'焦虑','fortune.mood.emo':'emo','fortune.mood.money':'想搞钱','fortune.mood.single':'单身想脱单','fortune.birthPlaceholder':'年/月/日',
+    'fortune.go':'🔮 开始占卜',
     'fortune.tip':'点上面按钮 ↑ 让宇宙告诉你点什么...',
     'lab.tbc':'下一个实验正在脑子里发酵 🧠',
     'contact.title':'怎么找到我',
@@ -899,6 +904,7 @@ const I18N = {
     'chat.forwarded':'☑ 已转给小姜的微信,他看到会在公众号后台回你。',
     'water.t':'喝水提醒 · 设置','water.lead':'这是装在 Chrome 上的实际界面预览。试试调整,下面会实时给一段"今日提醒计划"。',
     'water.l1':'提醒间隔','water.l2':'每次毫升','water.l3':'每日目标','water.l4':'免打扰开始','water.l5':'免打扰结束',
+    'water.interval.30':'每 30 分钟','water.interval.45':'每 45 分钟','water.interval.60':'每 60 分钟','water.interval.90':'每 90 分钟',
     'water.cancel':'关闭','water.save':'假装保存',
     'water.dl.t':'下载 · 喝水提醒小助手','water.dl.lead':'支持 Chrome / Edge / Arc。装完后右上角会出现一个小水滴图标。',
     'water.dl.ver':'v1.2.0 · 480 KB · 仅本地存储 · 无追踪','water.dl.btn':'前往 Chrome 商店',
@@ -926,6 +932,8 @@ const I18N = {
   },
   en:{
     'nav.about':'About','nav.map':'Map','nav.projects':'Tools','nav.lab':'Lab','nav.contact':'Contact',
+    'logo.brand':"Jiang's",'logo.suffix':' Living Room',
+    'title':"Jiang's Living Room",
     'hero.greet':'Push the door · come in',
     'hero.title':"Welcome to<br/><em>Jiang's</em><br/>living room.",
     'hero.sub':"Not a resume, not a portfolio — just <b>a little house</b> I built on the internet.<br/>Some tools I wrote, places I've been, weird experiments I made.<br/>Wander around. Click stuff. <b>Drop me a note</b> if you'd like :)",
@@ -952,7 +960,10 @@ const I18N = {
     'places.lead':"China's first batch of 5A scenic spots + UNESCO sites = 104 places. Green = visited, gray = not yet. Hit \"me too ❤️\" if you've been there, hit \"💬\" to drop a note under that place (anon works).",
     'places.s1':'/104 visited','places.s2':'walked the same path','places.s3':'place-notes left',
     'fortune.t':'AI Fortune Teller','fortune.d':"Drop your birthday and today's mood. AI gives you a cyber-fortune. Just for fun.",
-    'fortune.l1':'Birthday','fortune.l2':'Sign','fortune.l3':"Today's mood",'fortune.go':'🔮 Read my fortune',
+    'fortune.l1':'Birthday','fortune.l2':'Sign','fortune.l3':"Today's mood",
+    'fortune.opt.random':'Random','fortune.opt.aries':'Aries','fortune.opt.taurus':'Taurus','fortune.opt.gemini':'Gemini','fortune.opt.cancer':'Cancer','fortune.opt.leo':'Leo','fortune.opt.virgo':'Virgo','fortune.opt.libra':'Libra','fortune.opt.scorpio':'Scorpio','fortune.opt.sagittarius':'Sagittarius','fortune.opt.capricorn':'Capricorn','fortune.opt.aquarius':'Aquarius','fortune.opt.pisces':'Pisces',
+    'fortune.mood.calm':'Calm','fortune.mood.happy':'Happy','fortune.mood.anxious':'Anxious','fortune.mood.emo':'Meh','fortune.mood.money':'Want money','fortune.mood.single':'Single & looking','fortune.birthPlaceholder':'YYYY/MM/DD',
+    'fortune.go':'🔮 Read my fortune',
     'fortune.tip':'Click ↑ and let the universe whisper...',
     'lab.tbc':'Next experiment fermenting in my brain 🧠',
     'contact.title':'Find me',
@@ -969,6 +980,7 @@ const I18N = {
     'chat.forwarded':"☑ Forwarded to Jiang's WeChat. He'll reply via the OA backend.",
     'water.t':'Hydration · Settings','water.lead':"Live preview of the in-Chrome panel. Tweak and see today's reminder plan below.",
     'water.l1':'Interval','water.l2':'ml per time','water.l3':'Daily goal','water.l4':'Quiet from','water.l5':'Quiet until',
+    'water.interval.30':'Every 30 min','water.interval.45':'Every 45 min','water.interval.60':'Every 60 min','water.interval.90':'Every 90 min',
     'water.cancel':'Close','water.save':'Pretend save',
     'water.dl.t':'Install · Hydration Buddy','water.dl.lead':'Chrome / Edge / Arc supported. A 💧 icon shows up top-right after install.',
     'water.dl.ver':'v1.2.0 · 480 KB · local-only · no tracking','water.dl.btn':'Open Chrome Web Store',
@@ -1001,6 +1013,11 @@ function applyI18n(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');const v=I18N[LANG][k];if(v!=null)el.textContent=v});
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');const v=I18N[LANG][k];if(v!=null)el.innerHTML=v});
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.getAttribute('data-i18n-placeholder');const v=I18N[LANG][k];if(v!=null)el.setAttribute('placeholder',v)});
+  // <title> tag
+  const titleEl = document.querySelector('title[data-i18n]');
+  if(titleEl){const t=I18N[LANG]['title'];if(t)document.title=t;}
+  // Force re-render date inputs so browser picks up new lang for native placeholder
+  document.querySelectorAll('input[type="date"]').forEach(el=>{const val=el.value;const clone=el.cloneNode(true);clone.value=val;el.parentNode.replaceChild(clone,el);});
   document.getElementById('langBtn').textContent = LANG==='zh' ? 'EN / 中' : '中 / EN';
 }
 document.getElementById('langBtn').addEventListener('click',()=>{LANG=LANG==='zh'?'en':'zh';localStorage.setItem('lang',LANG);applyI18n();renderPlaces();updatePlacesStats();});
