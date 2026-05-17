@@ -1191,7 +1191,7 @@ const today = new Date();
 const pad = n => String(n).padStart(2, '0');
 fBirthInput.value = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
 
-// 初始化星座显示
+// 初始化星座显示（主动调用一次）
 function syncZodiacFromBirth() {
   const zodiac = getZodiacFromBirth(fBirthInput.value);
   fSignDisplay.dataset.sign = zodiac.name;
@@ -1199,10 +1199,7 @@ function syncZodiacFromBirth() {
   fSignDisplay.dataset.en = zodiac.en;
   fSignDisplay.textContent = LANG === 'zh' ? zodiac.zh : zodiac.en;
 }
-
-// 监听日期变化（input 每次按键变化，change 失去焦点时）
-fBirthInput.addEventListener('input', syncZodiacFromBirth);
-fBirthInput.addEventListener('change', syncZodiacFromBirth);
+syncZodiacFromBirth(); // 立即执行，不要等 applyI18n
 
 // 语言切换时重绘星座
 const _applyI18n = applyI18n;
@@ -1210,6 +1207,10 @@ applyI18n = function() {
   _applyI18n();
   syncZodiacFromBirth();
 };
+
+// 监听日期变化（input 每次按键变化，change 失去焦点时）
+fBirthInput.addEventListener('input', syncZodiacFromBirth);
+fBirthInput.addEventListener('change', syncZodiacFromBirth);
 
 /* ============================================================
    4) AI 算命 — 按钮逻辑
