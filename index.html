@@ -481,7 +481,7 @@
       <p style="font-size:16px;line-height:1.7" data-i18n="contact.lead">最爱的方式是公众号留言 —— 我会在地铁上、咖啡厅里慢慢回。代码相关上 GitHub,正经事发邮件。</p>
       <div class="links">
         <a href="https://github.com" target="_blank">
-          <span><b>⭐ GitHub</b><br/><small style="color:#666">github.com/your-handle</small></span>
+          <span><b>⭐ GitHub</b><br/><small style="color:#666">https://github.com/Jolin-Jiang-Studio</small></span>
           <span>↗</span>
         </a>
         <a href="mailto:576371467@qq.com">
@@ -489,7 +489,7 @@
           <span>↗</span>
         </a>
         <button id="openWechatQR">
-          <span><b>💬 <span data-i18n="contact.wechat.t">微信公众号</span></b><br/><small style="color:#666" data-i18n="contact.wechat.note">关注「小姜的客厅」 → 后台留言 → 我会回</small></span>
+          <span><b>💬 <span data-i18n="contact.wechat.t">微信公众号</span></b><br/><small style="color:#666" data-i18n="contact.wechat.note">关注「小姜鸭写字还要起名」 → 后台留言 → 我会回</small></span>
           <span>↗</span>
         </button>
       </div>
@@ -696,7 +696,7 @@
 <div class="qr-modal-bg" id="qrModal" role="dialog">
   <div class="qr-card">
     <h4 data-i18n="qr.t">关注公众号</h4>
-    <p style="font-size:14px;line-height:1.6" data-i18n="qr.lead">扫码关注「<b>小姜的客厅</b>」,后台回复任意内容,我会收到。</p>
+    <p style="font-size:14px;line-height:1.6" data-i18n="qr.lead">扫码关注「小姜鸭写字还要起名」,后台回复任意内容,我会收到。</p>
     <div class="qr-img" id="qrImg">[这里替换成真实 QR 图]</div>
     <p data-i18n="qr.note">建议把这个 div 替换为 <code>&lt;img src="你的二维码.png"&gt;</code></p>
     <button class="btn" id="closeQR" style="font-size:14px;padding:8px 16px;margin-top:12px" data-i18n="qr.close">关闭</button>
@@ -710,7 +710,7 @@
     <h4 data-i18n="chat.title">💌 留言瓶</h4>
     <button class="close" id="chatClose">✕</button>
   </div>
-  <div class="chat-tip" data-i18n-html="chat.tip">这里的消息会通过<b>微信公众号「小姜的客厅」</b>发到我的微信 —— 我看到会在公众号后台回你。先聊会儿,或者直接留下邮箱也行。</div>
+  <div class="chat-tip" data-i18n-html="chat.tip">这里的消息会通过<b>微信公众号「小姜鸭写字还要起名」</b>发到我的微信 —— 我看到会在公众号后台回你。先聊会儿,或者直接留下邮箱也行。</div>
   <div class="chat-body" id="chatBody">
     <div class="msg bot" data-i18n="chat.welcome">嘿,我是小姜的 AI 分身,帮你打个前站。聊聊吧 :) 你的话我会同步给小姜本人。</div>
   </div>
@@ -886,10 +886,10 @@ const I18N = {
     'contact.big':'想搭话?<br/><em>下面三个口子都通到我。</em>',
     'contact.lead':'最爱的方式是公众号留言 —— 我会在地铁上、咖啡厅里慢慢回。代码相关上 GitHub,正经事发邮件。',
     'contact.mail.note':'正经合作首选 / 24h 内回 · 576371467@qq.com',
-    'contact.wechat.t':'微信公众号','contact.wechat.note':'关注「小姜的客厅」 → 后台留言 → 我会回',
+    'contact.wechat.t':'微信公众号','contact.wechat.note':'关注「小姜鸭写字还要起名」 → 后台留言 → 我会回',
     'footer':'© 2026 小姜的网络客厅 · Built with ☕ + a lot of 🤪 vibes',
     'chat.title':'💌 留言瓶',
-    'chat.tip':'这里的消息会通过<b>微信公众号「小姜的客厅」</b>发到我的微信 —— 我看到会在公众号后台回你。先聊会儿,或者直接留下邮箱也行。',
+    'chat.tip':'这里的消息会通过<b>微信公众号「小姜鸭写字还要起名」</b>发到我的微信 —— 我看到会在公众号后台回你。先聊会儿,或者直接留下邮箱也行。',
     'chat.welcome':'嘿,我是小姜的 AI 分身,帮你打个前站。聊聊吧 :) 你的话我会同步给小姜本人。',
     'chat.placeholder':'想说点什么...','chat.send':'发送',
     'chat.error':'⚠️ 服务暂时不在,过会儿再试。',
@@ -920,7 +920,7 @@ const I18N = {
     'tab.guide.t':'使用说明 · 标签收纳','tab.guide.lead':'第一次用先填 API key,之后就是一键的事。',
     'tab.guide.body':`<h5>① 填 LLM Key</h5><ol><li>点扩展图标 → 设置 → <b>API Key</b>。</li><li>支持:OpenAI / Anthropic / DeepSeek / 月之暗面 / 智谱。</li><li>Key 只存浏览器本地,不上报任何地方。</li></ol><h5>② 一键归档</h5><ol><li>50 个标签开累了 → 按 <span class="kbd">⌘ Shift S</span>(或点工具栏图标)。</li><li>AI 会用每个标签的标题 + URL 给你分组,常见组:工作 / 学习 / 购物 / 摸鱼 / 待读。</li><li>不满意?直接拖到别的组,下次它会记住你的偏好。</li></ol><h5>③ 一键恢复</h5><ul><li>侧边栏选一个组 → <b>恢复全部</b> 或 <b>挑几个恢复</b>。</li><li>找东西用顶部搜索框,模糊搜标题/URL/分组都行。</li></ul><h5>隐私</h5><ul><li>归档的标签信息只发给 <b>你自己</b> 的 LLM endpoint,不经过我的服务器。</li><li>所有数据 = 浏览器本地 IndexedDB,卸载即清空。</li></ul>`,
     'proj.tab.try':'▶ 看看效果',
-    'qr.t':'关注公众号','qr.lead':'扫码关注「<b>小姜的客厅</b>」,后台回复任意内容,我会收到。',
+    'qr.t':'关注公众号','qr.lead':'扫码关注「小姜鸭写字还要起名」,后台回复任意内容,我会收到。',
     'qr.note':'建议把这个 div 替换为 <code>&lt;img src="你的二维码.png"&gt;</code>','qr.close':'关闭'
   },
   en:{
@@ -963,10 +963,10 @@ const I18N = {
     'contact.big':'Wanna talk?<br/><em>Three doors to me.</em>',
     'contact.lead':"Favorite way: WeChat OA — I reply on subway rides and in cafés. Code stuff on GitHub, formal stuff via email.",
     'contact.mail.note':'Best for business / reply in 24h · 576371467@qq.com',
-    'contact.wechat.t':'WeChat Official Account','contact.wechat.note':"Follow → DM in backend → I'll reply",
+    'contact.wechat.t':'WeChat Official Account','contact.wechat.note':"Follow 「小姜鸭写字还要起名」 → DM in backend → I'll reply",
     'footer':"© 2026 Jiang's Living Room · Built with ☕ + 🤪 vibes",
     'chat.title':'💌 Note Bottle',
-    'chat.tip':"Messages go through <b>WeChat OA \"Jiang's Living Room\"</b> to my WeChat — I'll reply via the OA backend. Or just leave your email here.",
+    'chat.tip':"Messages go through <b>WeChat OA 「小姜鸭写字还要起名」</b> to my WeChat — I'll reply via the OA backend. Or just leave your email here.",
     'chat.welcome':"Hey, I'm Jiang's AI front-desk. Tell me anything — I'll forward it to him :)",
     'chat.placeholder':'Say something...','chat.send':'SEND',
     'chat.error':'⚠️ Service is offline. Try later.','chat.thinking':'Thinking...',
@@ -996,7 +996,7 @@ const I18N = {
     'tab.guide.t':'Guide · Tab Stash','tab.guide.lead':'First-time setup: drop your API key. Then it\'s one click forever.',
     'tab.guide.body':`<h5>① Add LLM Key</h5><ol><li>Extension icon → Settings → <b>API Key</b>.</li><li>Supports: OpenAI / Anthropic / DeepSeek / Kimi / Zhipu.</li><li>Stored locally only. Never reported anywhere.</li></ol><h5>② One-tap stash</h5><ol><li>50 tabs open? Hit <span class="kbd">⌘ Shift S</span> (or the toolbar icon).</li><li>AI groups by title + URL: Work / Study / Shopping / Goofing / Read-later.</li><li>Drag tabs between groups — it learns your preferences.</li></ol><h5>③ One-tap restore</h5><ul><li>Pick a group in the sidebar → <b>Restore all</b> or <b>cherry pick</b>.</li><li>Use the top search box to fuzzy-find titles / URLs / groups.</li></ul><h5>Privacy</h5><ul><li>Tab info goes to <b>your</b> LLM endpoint only — never via my server.</li><li>All data lives in browser IndexedDB. Uninstall = wipe.</li></ul>`,
     'proj.tab.try':'▶ See it work',
-    'qr.t':'Follow on WeChat','qr.lead':"Scan to follow <b>Jiang's Living Room</b>. DM anything in the backend, I'll see it.",
+    'qr.t':'Follow on WeChat','qr.lead':"Scan to follow 「小姜鸭写字还要起名」. DM anything in the backend, I'll see it.",
     'qr.note':'Replace this div with <code>&lt;img src="your-qr.png"&gt;</code>','qr.close':'Close'
   }
 };
