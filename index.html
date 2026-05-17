@@ -920,7 +920,8 @@ const I18N = {
     'tab.guide.body':`<h5>① 填 LLM Key</h5><ol><li>点扩展图标 → 设置 → <b>API Key</b>。</li><li>支持:OpenAI / Anthropic / DeepSeek / 月之暗面 / 智谱。</li><li>Key 只存浏览器本地,不上报任何地方。</li></ol><h5>② 一键归档</h5><ol><li>50 个标签开累了 → 按 <span class="kbd">⌘ Shift S</span>(或点工具栏图标)。</li><li>AI 会用每个标签的标题 + URL 给你分组,常见组:工作 / 学习 / 购物 / 摸鱼 / 待读。</li><li>不满意?直接拖到别的组,下次它会记住你的偏好。</li></ol><h5>③ 一键恢复</h5><ul><li>侧边栏选一个组 → <b>恢复全部</b> 或 <b>挑几个恢复</b>。</li><li>找东西用顶部搜索框,模糊搜标题/URL/分组都行。</li></ul><h5>隐私</h5><ul><li>归档的标签信息只发给 <b>你自己</b> 的 LLM endpoint,不经过我的服务器。</li><li>所有数据 = 浏览器本地 IndexedDB,卸载即清空。</li></ul>`,
     'proj.tab.try':'▶ 看看效果',
     'qr.t':'关注公众号','qr.lead':'扫码关注「小姜鸭写字还要起名」,后台回复任意内容,我会收到。',
-    'qr.close':'关闭'
+    'qr.close':'关闭',
+    'region.north':'华北及东北','region.east':'华东','region.central':'华中及华南','region.southwest':'西南','region.northwest':'西北及港澳','region.cross':'跨区域'
   },
   en:{
     'nav.about':'About','nav.map':'Map','nav.projects':'Tools','nav.lab':'Lab','nav.contact':'Contact',
@@ -996,7 +997,8 @@ const I18N = {
     'tab.guide.body':`<h5>① Add LLM Key</h5><ol><li>Extension icon → Settings → <b>API Key</b>.</li><li>Supports: OpenAI / Anthropic / DeepSeek / Kimi / Zhipu.</li><li>Stored locally only. Never reported anywhere.</li></ol><h5>② One-tap stash</h5><ol><li>50 tabs open? Hit <span class="kbd">⌘ Shift S</span> (or the toolbar icon).</li><li>AI groups by title + URL: Work / Study / Shopping / Goofing / Read-later.</li><li>Drag tabs between groups — it learns your preferences.</li></ol><h5>③ One-tap restore</h5><ul><li>Pick a group in the sidebar → <b>Restore all</b> or <b>cherry pick</b>.</li><li>Use the top search box to fuzzy-find titles / URLs / groups.</li></ul><h5>Privacy</h5><ul><li>Tab info goes to <b>your</b> LLM endpoint only — never via my server.</li><li>All data lives in browser IndexedDB. Uninstall = wipe.</li></ul>`,
     'proj.tab.try':'▶ See it work',
     'qr.t':'Follow on WeChat','qr.lead':"Scan to follow 「小姜鸭写字还要起名」. DM anything in the backend, I'll see it.",
-    'qr.close':'Close'
+    'qr.close':'Close',
+    'region.north':'North & Northeast','region.east':'East','region.central':'Central & South','region.southwest':'Southwest','region.northwest':'Northwest & HK/Macau','region.cross':'Cross-region'
   }
 };
 let LANG = localStorage.getItem('lang') || (navigator.language.startsWith('zh')?'zh':'en');
@@ -1012,7 +1014,7 @@ function applyI18n(){
   document.querySelectorAll('input[type="date"]').forEach(el=>{const val=el.value;const clone=el.cloneNode(true);clone.value=val;el.parentNode.replaceChild(clone,el);});
   document.getElementById('langBtn').textContent = LANG==='zh' ? 'EN / 中' : '中 / EN';
 }
-document.getElementById('langBtn').addEventListener('click',()=>{LANG=LANG==='zh'?'en':'zh';localStorage.setItem('lang',LANG);applyI18n();renderPlaces();updatePlacesStats();});
+document.getElementById('langBtn').addEventListener('click',()=>{LANG=LANG==='zh'?'en':'zh';localStorage.setItem('lang',LANG);applyI18n();renderRegionTabs();renderPlaces();updatePlacesStats();});
 applyI18n();
 
 /* mobile burger */
@@ -1025,6 +1027,7 @@ navlist.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navlist.
 ============================================================ */
 const REGIONS = Object.keys(window.PLACES);
 let currentRegion = REGIONS[0];
+const REGION_KEYS = {'华北及东北':'region.north','华东':'region.east','华中及华南':'region.central','西南':'region.southwest','西北及港澳':'region.northwest','跨区域':'region.cross'};
 
 // LocalStorage 存点赞 / 留言(后期换成后端 fetch 即可)
 function lsGet(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}}
@@ -1038,7 +1041,11 @@ const STORE = {
 
 function renderRegionTabs(){
   const c = document.getElementById('regionTabs');
-  c.innerHTML = REGIONS.map(r=>`<button data-r="${r}" class="${r===currentRegion?'active':''}">${r}</button>`).join('');
+  c.innerHTML = REGIONS.map(r=>{
+    const key = REGION_KEYS[r] || r;
+    const label = (I18N && I18N[LANG] && I18N[LANG][key]) || r;
+    return `<button data-r="${r}" class="${r===currentRegion?'active':''}">${label}</button>`;
+  }).join('');
   c.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{currentRegion=b.dataset.r;renderRegionTabs();renderPlaces();}));
 }
 function renderPlaces(){
