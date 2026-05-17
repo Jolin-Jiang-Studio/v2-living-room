@@ -698,7 +698,6 @@
     <h4 data-i18n="qr.t">关注公众号</h4>
     <p style="font-size:14px;line-height:1.6" data-i18n="qr.lead">扫码关注「小姜鸭写字还要起名」,后台回复任意内容,我会收到。</p>
     <div class="qr-img" id="qrImg">[这里替换成真实 QR 图]</div>
-    <p data-i18n="qr.note">建议把这个 div 替换为 <code>&lt;img src="你的二维码.png"&gt;</code></p>
     <button class="btn" id="closeQR" style="font-size:14px;padding:8px 16px;margin-top:12px" data-i18n="qr.close">关闭</button>
   </div>
 </div>
@@ -921,7 +920,7 @@ const I18N = {
     'tab.guide.body':`<h5>① 填 LLM Key</h5><ol><li>点扩展图标 → 设置 → <b>API Key</b>。</li><li>支持:OpenAI / Anthropic / DeepSeek / 月之暗面 / 智谱。</li><li>Key 只存浏览器本地,不上报任何地方。</li></ol><h5>② 一键归档</h5><ol><li>50 个标签开累了 → 按 <span class="kbd">⌘ Shift S</span>(或点工具栏图标)。</li><li>AI 会用每个标签的标题 + URL 给你分组,常见组:工作 / 学习 / 购物 / 摸鱼 / 待读。</li><li>不满意?直接拖到别的组,下次它会记住你的偏好。</li></ol><h5>③ 一键恢复</h5><ul><li>侧边栏选一个组 → <b>恢复全部</b> 或 <b>挑几个恢复</b>。</li><li>找东西用顶部搜索框,模糊搜标题/URL/分组都行。</li></ul><h5>隐私</h5><ul><li>归档的标签信息只发给 <b>你自己</b> 的 LLM endpoint,不经过我的服务器。</li><li>所有数据 = 浏览器本地 IndexedDB,卸载即清空。</li></ul>`,
     'proj.tab.try':'▶ 看看效果',
     'qr.t':'关注公众号','qr.lead':'扫码关注「小姜鸭写字还要起名」,后台回复任意内容,我会收到。',
-    'qr.note':'建议把这个 div 替换为 <code>&lt;img src="你的二维码.png"&gt;</code>','qr.close':'关闭'
+    'qr.close':'关闭'
   },
   en:{
     'nav.about':'About','nav.map':'Map','nav.projects':'Tools','nav.lab':'Lab','nav.contact':'Contact',
@@ -997,7 +996,7 @@ const I18N = {
     'tab.guide.body':`<h5>① Add LLM Key</h5><ol><li>Extension icon → Settings → <b>API Key</b>.</li><li>Supports: OpenAI / Anthropic / DeepSeek / Kimi / Zhipu.</li><li>Stored locally only. Never reported anywhere.</li></ol><h5>② One-tap stash</h5><ol><li>50 tabs open? Hit <span class="kbd">⌘ Shift S</span> (or the toolbar icon).</li><li>AI groups by title + URL: Work / Study / Shopping / Goofing / Read-later.</li><li>Drag tabs between groups — it learns your preferences.</li></ol><h5>③ One-tap restore</h5><ul><li>Pick a group in the sidebar → <b>Restore all</b> or <b>cherry pick</b>.</li><li>Use the top search box to fuzzy-find titles / URLs / groups.</li></ul><h5>Privacy</h5><ul><li>Tab info goes to <b>your</b> LLM endpoint only — never via my server.</li><li>All data lives in browser IndexedDB. Uninstall = wipe.</li></ul>`,
     'proj.tab.try':'▶ See it work',
     'qr.t':'Follow on WeChat','qr.lead':"Scan to follow 「小姜鸭写字还要起名」. DM anything in the backend, I'll see it.",
-    'qr.note':'Replace this div with <code>&lt;img src="your-qr.png"&gt;</code>','qr.close':'Close'
+    'qr.close':'Close'
   }
 };
 let LANG = localStorage.getItem('lang') || (navigator.language.startsWith('zh')?'zh':'en');
