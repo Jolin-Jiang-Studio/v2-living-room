@@ -1,0 +1,1328 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" />
+<title>小姜的网络客厅 · Jiang's Living Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Bowlby+One&family=ZCOOL+KuaiLe&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fef6e4; --ink:#001858; --accent:#f582ae; --accent2:#8bd3dd; --yellow:#ffd803;
+    --red:#ff5a5f; --green:#7bc950; --line:#001858;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Space Grotesk','PingFang SC','Microsoft YaHei',sans-serif;
+    background:var(--bg);color:var(--ink);overflow-x:hidden;
+    background-image:
+      radial-gradient(var(--ink) 1.2px, transparent 1.4px),
+      radial-gradient(var(--ink) 1.2px, transparent 1.4px);
+    background-size:22px 22px, 22px 22px;
+    background-position:0 0, 11px 11px;
+    background-attachment:fixed;
+  }
+  .ink{border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink)}
+  .ink-lg{border:4px solid var(--ink);box-shadow:10px 10px 0 var(--ink)}
+
+  /* 中文标题字体 */
+  .cn-title{font-family:'ZCOOL KuaiLe','Bangers',sans-serif}
+  .en-title{font-family:'Bowlby One','Bangers',sans-serif}
+
+  /* nav */
+  .nav{position:sticky;top:0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:14px 28px;background:var(--bg);border-bottom:3px solid var(--ink)}
+  .logo{font-family:'ZCOOL KuaiLe','Bangers',sans-serif;font-size:24px;letter-spacing:1px}
+  .logo span{background:var(--yellow);padding:2px 10px;border:2.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);display:inline-block;transform:rotate(-3deg);margin-right:4px}
+  .nav ul{display:flex;gap:6px;list-style:none}
+  .nav a{color:var(--ink);text-decoration:none;font-weight:800;padding:6px 12px;border:2px solid transparent;transition:.1s}
+  .nav a:hover{background:var(--accent);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px)}
+  .lang-toggle{font-family:'Bangers',sans-serif;font-size:18px;letter-spacing:1px;background:var(--accent2);border:3px solid var(--ink);padding:4px 14px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:.1s}
+  .lang-toggle:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+  .burger{display:none;background:var(--yellow);border:3px solid var(--ink);width:42px;height:42px;cursor:pointer;font-size:22px;box-shadow:4px 4px 0 var(--ink)}
+
+  /* HERO —— 个人空间感 */
+  .hero{min-height:88vh;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;padding:60px 48px 80px;align-items:center;position:relative}
+  .hero .greet{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:2px;color:var(--red);margin-bottom:14px;display:inline-block;background:var(--yellow);border:3px solid var(--ink);padding:4px 14px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-2deg)}
+  .hero h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(48px,8.2vw,118px);line-height:1;letter-spacing:1px}
+  .hero h1 em{font-style:normal;background:var(--accent);padding:0 14px;border:5px solid var(--ink);box-shadow:12px 12px 0 var(--ink);display:inline-block;transform:rotate(-3deg)}
+  .hero .sub{font-size:19px;margin-top:28px;max-width:540px;line-height:1.7;font-weight:500}
+  .hero .sub b{background:var(--accent2);padding:0 4px;border:2px solid var(--ink)}
+  .ctas{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap}
+  .btn{background:var(--yellow);color:var(--ink);text-decoration:none;font-weight:900;padding:14px 26px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:1.5px;transition:.12s;cursor:pointer}
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--ink)}
+  .btn.alt{background:var(--ink);color:var(--bg)}
+  .btn.red{background:var(--red);color:#fff}
+
+  .pow{position:absolute;font-family:'Bangers',sans-serif;text-shadow:3px 3px 0 var(--ink);pointer-events:none;user-select:none}
+  .pow.p1{top:8%;right:46%;font-size:54px;color:var(--accent);transform:rotate(-15deg)}
+  .pow.p2{bottom:14%;left:54%;font-size:42px;color:var(--yellow);transform:rotate(8deg)}
+
+  /* hero 右侧:个人小卡片(像房间贴的便利贴) */
+  .room-card{background:#fff;border:4px solid var(--ink);box-shadow:12px 12px 0 var(--ink);padding:24px;position:relative;transform:rotate(2deg)}
+  .room-card::before,.room-card::after{content:"";position:absolute;left:-20px;bottom:30px;width:0;height:0;border:14px solid transparent;border-right-color:var(--ink)}
+  .room-card::after{left:-12px;border-right-color:#fff}
+  .room-card h3{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:1.5px;margin-bottom:12px}
+  .room-card .row{display:flex;justify-content:space-between;border-top:2px dashed var(--ink);padding:10px 0;font-weight:700;gap:10px}
+  .room-card .row:first-of-type{border-top:none}
+  .room-card .dot{width:14px;height:14px;background:var(--accent);border:2px solid var(--ink);display:inline-block;margin-right:8px;vertical-align:middle;border-radius:50%}
+  .room-card .row span:last-child{text-align:right}
+
+  /* sections */
+  section{padding:80px 48px;border-top:4px solid var(--ink);position:relative}
+  .sec-title{font-family:'ZCOOL KuaiLe','Bangers',sans-serif;font-size:clamp(36px,5.2vw,64px);letter-spacing:1px;margin-bottom:18px}
+  .sec-title::before{content:"//";color:var(--accent);margin-right:14px;font-family:'Bangers',sans-serif}
+  .sec-lead{font-size:18px;line-height:1.6;max-width:760px;margin-bottom:34px;font-weight:500}
+
+  /* Bento map */
+  .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+  .cell{background:#fff;border:3.5px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:22px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;justify-content:space-between;min-height:160px;transition:.15s;position:relative;overflow:hidden}
+  .cell:hover{transform:translate(-3px,-3px) rotate(-1deg);box-shadow:12px 12px 0 var(--ink)}
+  .cell .ico{font-size:34px}
+  .cell .label{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:1.5px;line-height:1.1}
+  .cell .label small{display:block;font-family:'Space Grotesk';font-size:13px;font-weight:600;letter-spacing:0;margin-top:4px;color:#3a3f6e}
+  .cell .arrow{align-self:flex-end;font-size:28px;font-weight:900}
+  .cell.about{grid-column:span 2;background:var(--accent)}
+  .cell.projects{grid-column:span 2;background:var(--accent2)}
+  .cell.lab{grid-column:span 2;background:var(--yellow)}
+  .cell.places{grid-column:span 3;background:#fff}
+  .cell.chat-c{grid-column:span 2;background:#fff}
+  .cell.contact{grid-column:span 1;background:var(--ink);color:var(--bg)}
+
+  /* about timeline */
+  .timeline{display:grid;gap:14px}
+  .ti{display:grid;grid-template-columns:160px 1fr;gap:20px;border:3px solid var(--ink);padding:18px;background:#fff;box-shadow:6px 6px 0 var(--ink)}
+  .ti b{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:1.5px;color:var(--red)}
+
+  /* project / lab cards */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .proj{background:#fff;border:3.5px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:18px;transition:.15s;display:flex;flex-direction:column}
+  .proj:hover{transform:rotate(-1deg) translate(-2px,-2px);box-shadow:12px 12px 0 var(--ink)}
+  .proj .pic{height:160px;border:3px solid var(--ink);margin-bottom:14px;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:64px}
+  .proj .pic::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,#0001 0 6px,transparent 6px 12px)}
+  .proj .pic .badge{position:absolute;top:10px;left:10px;background:var(--yellow);border:2.5px solid var(--ink);padding:2px 10px;font-family:'Bangers',sans-serif;font-size:14px;letter-spacing:1px;z-index:2;transform:rotate(-4deg)}
+  .proj .pic .ico-lg{position:relative;z-index:1;filter:drop-shadow(3px 3px 0 var(--ink))}
+  .proj h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:1.5px;margin-bottom:6px}
+  .proj p{line-height:1.55;flex:1}
+  .proj .stack{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .proj .stack span{background:var(--yellow);border:2px solid var(--ink);padding:2px 8px;font-size:12px;font-weight:800}
+  .proj .actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .proj .mini-btn{background:var(--ink);color:#fff;border:2.5px solid var(--ink);padding:6px 12px;font-weight:800;font-size:13px;cursor:pointer;text-decoration:none;display:inline-block;transition:.1s;font-family:inherit}
+  .proj .mini-btn.y{background:var(--yellow);color:var(--ink)}
+  .proj .mini-btn.p{background:var(--accent);color:var(--ink)}
+  .proj .mini-btn:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+  .proj.coming{background:repeating-linear-gradient(135deg,#fff 0 14px,#fef0c4 14px 28px);text-align:center;justify-content:center;align-items:center;min-height:380px}
+  .proj.coming .big{font-family:'Bangers',sans-serif;font-size:64px;color:var(--ink);transform:rotate(-6deg);text-shadow:4px 4px 0 var(--accent)}
+  .proj.coming p{flex:0;font-size:14px;color:#444;margin-top:14px}
+
+  /* PLACES (Lab #1) */
+  .places-summary{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+  .stat{background:#fff;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:14px 18px;font-weight:800}
+  .stat b{font-family:'Bangers',sans-serif;font-size:28px;color:var(--red);margin-right:6px;letter-spacing:1px}
+  .region-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .region-tabs button{font-family:'Bangers',sans-serif;letter-spacing:1px;padding:6px 14px;border:2.5px solid var(--ink);background:#fff;cursor:pointer;font-size:15px;box-shadow:3px 3px 0 var(--ink);transition:.1s}
+  .region-tabs button.active{background:var(--accent);transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .region-tabs button:hover{background:var(--accent2)}
+  .place-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  .place{background:#fff;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:14px;display:flex;flex-direction:column;gap:8px;transition:.12s}
+  .place:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink)}
+  .place.visited{background:#e8f8e0}
+  .place .top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+  .place .city{font-size:12px;font-weight:700;color:#666}
+  .place .name{font-family:'Bangers',sans-serif;font-size:19px;letter-spacing:1px;line-height:1.2}
+  .place .tag{font-size:11px;background:var(--yellow);border:2px solid var(--ink);padding:1px 6px;font-weight:800;display:inline-block}
+  .place .pin{font-size:20px}
+  .place .pin.yes{filter:none}
+  .place .pin.no{filter:grayscale(1) opacity(.45)}
+  .place .footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto;gap:6px;flex-wrap:wrap}
+  .like-btn{background:#fff;border:2.5px solid var(--ink);font-weight:800;padding:4px 10px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:4px;font-family:inherit;transition:.1s}
+  .like-btn:hover{background:var(--accent)}
+  .like-btn.liked{background:var(--accent);transform:scale(1.05)}
+  .visited-stamp{font-family:'Bangers',sans-serif;font-size:13px;letter-spacing:1px;color:var(--green);border:2.5px solid var(--green);padding:1px 8px;transform:rotate(-6deg)}
+  .visited-stamp.no{color:#999;border-color:#bbb}
+  .cmt-btn{background:#fff;border:2.5px solid var(--ink);font-weight:800;padding:4px 10px;cursor:pointer;font-size:13px;font-family:inherit;transition:.1s;display:inline-flex;align-items:center;gap:4px}
+  .cmt-btn:hover{background:var(--accent2)}
+  .cmt-btn.on{background:var(--accent2)}
+  .cmt-box{display:none;border-top:2.5px dashed var(--ink);margin-top:4px;padding-top:10px;flex-direction:column;gap:8px}
+  .cmt-box.show{display:flex}
+  .cmt-list{display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto}
+  .cmt-empty{font-size:12px;color:#888;font-style:italic}
+  .cmt-item{background:var(--bg);border:2px solid var(--ink);padding:7px 9px;font-size:12.5px;line-height:1.45}
+  .cmt-item .who{font-family:'Bangers',sans-serif;font-size:13px;letter-spacing:1px;margin-right:6px}
+  .cmt-item .who .badge{background:var(--accent2);border:1.5px solid var(--ink);padding:0 4px;font-size:10px;letter-spacing:.5px;margin-left:4px}
+  .cmt-item .when{font-size:10px;color:#888}
+  .cmt-form{display:flex;flex-direction:column;gap:6px;background:var(--bg);border:2px solid var(--ink);padding:8px}
+  .cmt-form .row1{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .cmt-form input[type=text]{flex:1;min-width:100px;padding:5px 7px;border:2px solid var(--ink);font-family:inherit;font-size:12px;outline:none;background:#fff}
+  .cmt-form .anon{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;cursor:pointer;user-select:none}
+  .cmt-form textarea{padding:6px 8px;border:2px solid var(--ink);font-family:inherit;font-size:12.5px;outline:none;background:#fff;resize:vertical;min-height:50px}
+  .cmt-form .send-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666}
+  .cmt-form .send-btn{background:var(--yellow);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);padding:4px 10px;font-family:'Bangers',sans-serif;font-size:13px;letter-spacing:1px;cursor:pointer;transition:.1s}
+  .cmt-form .send-btn:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+
+  /* Tab Stash demo modal preview UI */
+  .tab-demo{background:var(--bg);border:3px solid var(--ink);padding:12px;display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto}
+  .tab-group{background:#fff;border:2.5px solid var(--ink);padding:10px;box-shadow:3px 3px 0 var(--ink)}
+  .tab-group .gh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .tab-group .gh b{font-family:'Bangers',sans-serif;font-size:15px;letter-spacing:1px}
+  .tab-group .gh .cnt{font-size:11px;background:var(--yellow);border:1.5px solid var(--ink);padding:0 6px;font-weight:800}
+  .tab-row{display:flex;align-items:center;gap:6px;font-size:12px;padding:3px 0;border-top:1px dashed #ccc}
+  .tab-row:first-of-type{border-top:none}
+  .tab-row .fav{width:14px;height:14px;background:var(--accent);border:1.5px solid var(--ink);flex:none}
+  .tab-row .url{color:#666;font-size:10.5px;margin-left:auto}
+
+  /* Markdown-like guide block inside modal */
+  .md-block{background:var(--bg);border:3px solid var(--ink);padding:14px;font-size:13.5px;line-height:1.6;max-height:380px;overflow-y:auto}
+  .md-block h5{font-family:'Bangers',sans-serif;font-size:17px;letter-spacing:1px;margin:10px 0 6px;color:var(--red)}
+  .md-block h5:first-child{margin-top:0}
+  .md-block ol,.md-block ul{padding-left:22px;margin:6px 0}
+  .md-block li{margin:3px 0}
+  .md-block code{background:#fff;border:1.5px solid var(--ink);padding:0 4px;font-size:12px}
+  .md-block .kbd{background:#fff;border:2px solid var(--ink);box-shadow:1.5px 1.5px 0 var(--ink);padding:1px 6px;font-size:11px;font-weight:800}
+
+  /* Download modal */
+  .dl-block{background:var(--bg);border:3px solid var(--ink);padding:18px;text-align:center}
+  .dl-block .icon{font-size:54px;line-height:1;margin-bottom:8px}
+  .dl-block .name{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:4px}
+  .dl-block .ver{font-size:12px;color:#666;margin-bottom:14px}
+  .dl-block .store-btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-family:'Bangers',sans-serif;font-size:18px;letter-spacing:1.5px;padding:10px 22px;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--accent);transition:.1s}
+  .dl-block .store-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--accent)}
+  .dl-block .alt-info{font-size:12px;color:#555;margin-top:14px;line-height:1.5}
+  .modal-card.wide{max-width:520px}
+
+  /* 待上架徽章 + 商店按钮的 disabled 态 */
+  .pending-badge{display:inline-flex;align-items:center;gap:6px;background:#fff8e1;border:2.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:6px 12px;font-family:'Bangers',sans-serif;font-size:14px;letter-spacing:1px;color:var(--ink);margin-bottom:14px;transform:rotate(-1.5deg)}
+  .pending-badge .blink{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);animation:blink 1.4s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+  .store-btn.disabled{background:#bbb;color:#444;box-shadow:5px 5px 0 #888;cursor:not-allowed;pointer-events:none;position:relative}
+  .store-btn.disabled::after{content:"⏳";position:absolute;top:-12px;right:-12px;background:var(--yellow);border:2.5px solid var(--ink);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;transform:rotate(15deg)}
+
+  /* 直接下载主按钮 */
+  .dl-primary{display:inline-block;background:var(--yellow);color:var(--ink);text-decoration:none;font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:1.5px;padding:12px 26px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);transition:.12s;margin-bottom:8px}
+  .dl-primary:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--ink)}
+  .dl-primary small{display:block;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:0;margin-top:2px;opacity:.7}
+
+  /* 安装步骤(unpacked load) */
+  .install-steps{background:#fff;border:3px solid var(--ink);padding:14px;margin-top:14px;text-align:left;font-size:13px;line-height:1.6}
+  .install-steps h6{font-family:'Bangers',sans-serif;font-size:15px;letter-spacing:1px;color:var(--red);margin-bottom:8px}
+  .install-steps ol{padding-left:22px}
+  .install-steps li{margin:5px 0}
+  .install-steps code{background:var(--bg);border:1.5px solid var(--ink);padding:0 5px;font-size:12px}
+  .install-steps .kbd{background:var(--bg);border:2px solid var(--ink);box-shadow:1.5px 1.5px 0 var(--ink);padding:1px 6px;font-size:11px;font-weight:800}
+
+  /* 留言区 */
+  .guestbook{margin-top:36px;border-top:3px dashed var(--ink);padding-top:30px}
+  .guestbook h3{font-family:'Bangers',sans-serif;font-size:26px;letter-spacing:1.5px;margin-bottom:14px}
+  .guestbook .form{background:#fff;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:16px;display:grid;gap:10px;margin-bottom:18px}
+  .guestbook .form-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .guestbook input[type=text]{flex:1;min-width:160px;padding:10px;border:2.5px solid var(--ink);font-family:inherit;font-size:14px;outline:none;background:var(--bg);box-shadow:3px 3px 0 var(--ink)}
+  .guestbook input[type=text]:focus{background:#fff}
+  .guestbook textarea{padding:10px;border:2.5px solid var(--ink);font-family:inherit;font-size:14px;outline:none;background:var(--bg);box-shadow:3px 3px 0 var(--ink);resize:vertical;min-height:70px}
+  .guestbook textarea:focus{background:#fff}
+  .guestbook .anon{display:flex;align-items:center;gap:6px;font-weight:700;cursor:pointer;user-select:none}
+  .guestbook .anon input{transform:scale(1.3);accent-color:var(--ink)}
+  .gb-list{display:grid;gap:10px}
+  .gb-item{background:#fff;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:14px}
+  .gb-item .who{font-family:'Bangers',sans-serif;font-size:16px;letter-spacing:1px;margin-bottom:4px}
+  .gb-item .who .badge{background:var(--accent2);border:2px solid var(--ink);padding:0 6px;font-size:11px;margin-left:6px;letter-spacing:1px}
+  .gb-item .when{font-size:11px;color:#888;margin-left:6px}
+  .gb-item .text{line-height:1.5;font-size:14px}
+
+  /* 算命 */
+  .fortune{background:#fff;border:3.5px solid var(--ink);box-shadow:10px 10px 0 var(--ink);padding:24px}
+  .fortune .form{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+  .fortune label{font-weight:800;font-size:13px;display:block;margin-bottom:4px}
+  .fortune input,.fortune select{width:100%;padding:10px;border:2.5px solid var(--ink);font-family:inherit;font-size:14px;outline:none;background:var(--bg);box-shadow:3px 3px 0 var(--ink)}
+  .fortune .result{margin-top:14px;border:3px dashed var(--ink);padding:18px;background:#fff8e1;font-size:15px;line-height:1.7;min-height:80px;white-space:pre-wrap}
+
+  /* contact */
+  .contact{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:center}
+  .contact .big{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(40px,5vw,68px);line-height:1.1;letter-spacing:1px}
+  .contact .big em{font-style:normal;background:var(--yellow);padding:0 10px;border:4px solid var(--ink);display:inline-block;transform:rotate(-2deg);box-shadow:6px 6px 0 var(--ink)}
+  .contact .panel{background:#fff;border:3.5px solid var(--ink);box-shadow:10px 10px 0 var(--ink);padding:24px}
+  .contact .links{display:grid;gap:10px;margin-top:14px}
+  .contact .links a,.contact .links button{color:var(--ink);text-decoration:none;border:2.5px solid var(--ink);padding:12px 16px;background:var(--bg);font-weight:700;display:flex;justify-content:space-between;align-items:center;transition:.1s;font-family:inherit;font-size:14px;cursor:pointer;text-align:left}
+  .contact .links a:hover,.contact .links button:hover{background:var(--accent);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+  .qr-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,24,88,.6);z-index:200;align-items:center;justify-content:center;padding:20px}
+  .qr-modal-bg.show{display:flex}
+  .qr-card{background:#fff;border:4px solid var(--ink);box-shadow:12px 12px 0 var(--ink);padding:26px;max-width:340px;text-align:center}
+  .qr-card h4{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:1.5px;margin-bottom:10px}
+  .qr-card .qr-img{width:240px;height:240px;border:3px solid var(--ink);background:repeating-linear-gradient(0deg,#000 0 4px,#fff 4px 8px),repeating-linear-gradient(90deg,#000 0 4px,#fff 4px 8px);background-blend-mode:multiply;margin:14px auto;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;text-shadow:1px 1px 0 #000;font-weight:800}
+  .qr-card p{font-size:13px;line-height:1.5;color:#444;margin-top:8px}
+
+  footer{padding:40px 48px;border-top:4px solid var(--ink);text-align:center;font-weight:800;font-family:'Bangers',sans-serif;letter-spacing:1.5px;font-size:18px}
+
+  /* CHAT (留言瓶) */
+  .chat-fab{position:fixed;right:24px;bottom:24px;z-index:90;width:68px;height:68px;border-radius:50%;background:var(--yellow);border:4px solid var(--ink);box-shadow:6px 6px 0 var(--ink);cursor:pointer;font-size:30px;display:flex;align-items:center;justify-content:center;transition:.15s;animation:wiggle 2.5s ease-in-out infinite}
+  .chat-fab:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--ink);animation:none}
+  @keyframes wiggle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+  .chat-fab .ping{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:var(--red);border:2.5px solid var(--ink)}
+  .chat-panel{position:fixed;right:24px;bottom:104px;z-index:91;width:380px;max-width:calc(100vw - 32px);height:560px;max-height:calc(100vh - 140px);background:var(--bg);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--ink);display:none;flex-direction:column;overflow:hidden}
+  .chat-panel.open{display:flex;animation:popin .18s cubic-bezier(.2,1.4,.5,1)}
+  @keyframes popin{from{transform:scale(.85) translateY(20px);opacity:0}to{transform:none;opacity:1}}
+  .chat-head{background:var(--accent);border-bottom:3px solid var(--ink);padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+  .chat-head h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:1.5px}
+  .chat-head .close{background:var(--yellow);border:2.5px solid var(--ink);width:30px;height:30px;cursor:pointer;font-weight:900;box-shadow:3px 3px 0 var(--ink)}
+  .chat-tip{background:#fff8e1;border-bottom:3px solid var(--ink);padding:10px 14px;font-size:12px;line-height:1.5;color:#444}
+  .chat-tip b{color:var(--ink)}
+  .chat-body{flex:1;overflow-y:auto;padding:16px;background:var(--bg);background-image:radial-gradient(var(--ink) .8px, transparent .8px);background-size:14px 14px}
+  .msg{margin-bottom:12px;max-width:85%;padding:10px 14px;border:2.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);font-size:14px;line-height:1.5;word-wrap:break-word;white-space:pre-wrap}
+  .msg.bot{background:#fff;border-radius:14px 14px 14px 2px}
+  .msg.user{background:var(--accent2);margin-left:auto;border-radius:14px 14px 2px 14px}
+  .msg.bot.typing{font-style:italic;color:#666}
+  .msg.bot.system{background:var(--yellow);font-size:13px}
+  .chat-input{display:flex;gap:8px;padding:12px;border-top:3px solid var(--ink);background:#fff}
+  .chat-input input{flex:1;font-family:inherit;font-size:14px;padding:10px 12px;border:2.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);outline:none;background:var(--bg)}
+  .chat-input input:focus{background:#fff}
+  .chat-input button{background:var(--yellow);border:2.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:0 16px;cursor:pointer;font-family:'Bangers',sans-serif;font-size:18px;letter-spacing:1px;transition:.1s}
+  .chat-input button:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .chat-input button:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:3px 3px 0 var(--ink)}
+
+  /* 喝水插件设置弹窗 demo */
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,24,88,.6);z-index:200;align-items:center;justify-content:center;padding:20px}
+  .modal-bg.show{display:flex}
+  .modal-card{background:#fff;border:4px solid var(--ink);box-shadow:12px 12px 0 var(--ink);padding:24px;width:100%;max-width:420px}
+  .modal-card h4{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:1.5px;margin-bottom:6px}
+  .modal-card .lead{font-size:13px;color:#555;margin-bottom:16px}
+  .modal-card label{display:block;font-weight:800;font-size:13px;margin:12px 0 4px}
+  .modal-card input,.modal-card select{width:100%;padding:10px;border:2.5px solid var(--ink);font-family:inherit;font-size:14px;outline:none;background:var(--bg);box-shadow:3px 3px 0 var(--ink)}
+  .modal-card .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .modal-card .actions{display:flex;gap:10px;margin-top:18px;justify-content:flex-end}
+  .modal-card .preview{background:var(--accent);border:3px solid var(--ink);padding:10px 14px;margin-top:14px;font-weight:800;text-align:center}
+
+  @media (max-width:900px){
+    body{background-size:16px 16px,16px 16px;background-position:0 0,8px 8px}
+    .nav{padding:12px 16px}
+    .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);border-bottom:3px solid var(--ink);padding:10px 16px;gap:0}
+    .nav ul.show{display:flex}
+    .nav ul li{border-bottom:2px solid var(--ink)}
+    .nav ul li:last-child{border-bottom:none}
+    .nav ul a{display:block;padding:12px 8px}
+    .burger{display:flex;align-items:center;justify-content:center}
+
+    .hero{grid-template-columns:1fr;padding:40px 18px 60px;gap:30px;min-height:auto}
+    .pow{display:none}
+    .room-card{transform:none}
+    .room-card::before,.room-card::after{display:none}
+
+    section{padding:50px 18px}
+    .bento{grid-template-columns:repeat(2,1fr);gap:12px}
+    .cell{grid-column:span 2 !important;min-height:130px;padding:18px}
+    .cell.about,.cell.projects,.cell.lab,.cell.chat-c{grid-column:span 1 !important}
+
+    .timeline .ti{grid-template-columns:1fr;gap:6px;padding:14px}
+    .grid3{grid-template-columns:1fr}
+    .contact{grid-template-columns:1fr;gap:20px}
+    .place-grid{grid-template-columns:1fr}
+    .fortune .form{grid-template-columns:1fr}
+
+    .chat-fab{width:56px;height:56px;font-size:24px;right:16px;bottom:16px}
+    .chat-panel{right:8px;left:8px;bottom:84px;width:auto;height:74vh}
+    footer{padding:30px 18px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo"><span>小姜</span>的网络客厅</div>
+  <ul id="navlist">
+    <li><a href="#about" data-i18n="nav.about">关于</a></li>
+    <li><a href="#nav" data-i18n="nav.map">地图</a></li>
+    <li><a href="#projects" data-i18n="nav.projects">小工具</a></li>
+    <li><a href="#lab" data-i18n="nav.lab">实验室</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">联系</a></li>
+  </ul>
+  <div style="display:flex;gap:10px;align-items:center">
+    <button class="lang-toggle" id="langBtn">EN / 中</button>
+    <button class="burger" id="burger" aria-label="menu">☰</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <span class="pow p1">HEY!</span>
+  <span class="pow p2">YO~</span>
+  <div>
+    <span class="greet" data-i18n="hero.greet">推门进来 · 别客气</span>
+    <h1 data-i18n-html="hero.title">这里是<br/><em>小姜</em>的<br/>网络客厅。</h1>
+    <p class="sub" data-i18n-html="hero.sub">这里不是简历,也不是作品集 —— 只是我在互联网上的<b>一间小房子</b>。<br/>放了一些自己写的小工具、去过的地方、稀奇古怪的实验。<br/>欢迎随便逛、随便点、有话想说就<b>留言</b>给我 :)</p>
+    <div class="ctas">
+      <a class="btn" href="#projects" data-i18n="hero.cta1">看看我做的小玩意</a>
+      <a class="btn alt" href="#lab" data-i18n="hero.cta2">逛逛实验室</a>
+      <button class="btn red" id="openChatHero" data-i18n="hero.cta3">给我留个言</button>
+    </div>
+  </div>
+  <aside class="room-card">
+    <h3 data-i18n="status.title">// 客厅状态</h3>
+    <div class="row"><span><span class="dot"></span><span data-i18n="status.k1">现在在</span></span><b data-i18n="status.v1">上海 · 写代码</b></div>
+    <div class="row"><span><span class="dot"></span><span data-i18n="status.k2">最近在想</span></span><b data-i18n="status.v2">被AI替代后去哪里摇奶茶</b></div>
+    <div class="row"><span><span class="dot"></span><span data-i18n="status.k3">最近在做</span></span><b data-i18n="status.v3">这个网站</b></div>
+    <div class="row"><span><span class="dot"></span><span data-i18n="status.k4">咖啡量</span></span><b data-i18n="status.v4">3 杯 / 天</b></div>
+  </aside>
+</header>
+
+<section id="nav">
+  <h2 class="sec-title" data-i18n="map.title">想看哪一间屋?</h2>
+  <div class="bento">
+    <a class="cell about" href="#about"><div class="ico">👋</div><div class="label" data-i18n-html="map.c1">About<small>关于小姜</small></div><div class="arrow">→</div></a>
+    <a class="cell projects" href="#projects"><div class="ico">🛠️</div><div class="label" data-i18n-html="map.c2">小工具<small>我写的插件</small></div><div class="arrow">→</div></a>
+    <a class="cell lab" href="#lab"><div class="ico">🧪</div><div class="label" data-i18n-html="map.c3">实验室<small>奇奇怪怪的玩意</small></div><div class="arrow">→</div></a>
+    <a class="cell places" href="#lab"><div class="ico">📍</div><div class="label" data-i18n-html="map.c4">去过的地方 · 一起打卡</div><div class="arrow">→</div></a>
+    <a class="cell chat-c" id="bentoChat" href="#"><div class="ico">💬</div><div class="label" data-i18n-html="map.c5">给我留言</div><div class="arrow">→</div></a>
+    <a class="cell contact" href="#contact"><div class="ico">📮</div><div class="label" data-i18n-html="map.c6">联系</div><div class="arrow">→</div></a>
+  </div>
+</section>
+
+<section id="about">
+  <h2 class="sec-title" data-i18n="about.title">关于小姜</h2>
+  <p class="sec-lead" data-i18n="about.lead">尝试了蛮多行业,总想做点更好玩的。白天打工写需求,晚上 vibe-code 自娱自乐。把 AI 当第二个自己,让无聊的事自动化、让脑洞快速验证。这个网站就是顺手 vibe 出来的。</p>
+  <div class="timeline">
+    <div class="ti"><b data-i18n="about.t1.k">现在</b><div data-i18n="about.t1.v">在某厂当 PM,n = 5.5</div></div>
+    <div class="ti"><b data-i18n="about.t2.k">业余</b><div data-i18n="about.t2.v">聚餐专用选餐厅 Bot · 著名爬山虎</div></div>
+    <div class="ti"><b data-i18n="about.t3.k">爱好</b><div data-i18n="about.t3.v">咖啡 · 旅行打卡 · 装修房东的房子</div></div>
+  </div>
+</section>
+
+<!-- ============== 小工具(插件) ============== -->
+<section id="projects">
+  <h2 class="sec-title" data-i18n="proj.title">我做的小玩意</h2>
+  <p class="sec-lead" data-i18n="proj.lead">几乎都是 Chrome 插件。点开看说明、下载,或者点"试试看"直接预览插件设置面板。</p>
+  <div class="grid3">
+
+    <article class="proj">
+      <div class="pic" style="background:linear-gradient(135deg,#8bd3dd,#fff)"><span class="badge">LIVE</span><span class="ico-lg">💧</span></div>
+      <h4 data-i18n="proj.water.t">喝水提醒小助手</h4>
+      <p data-i18n="proj.water.d">装在 Chrome 上的喝水提醒。可以自定义提醒间隔、每次喝多少毫升、白天/夜间静默时段。会用桌面通知温柔地戳你一下。</p>
+      <div class="stack"><span>Chrome Ext</span><span>Vanilla JS</span><span>Notifications API</span></div>
+      <div class="actions">
+        <button class="mini-btn y" id="openWaterDemo" data-i18n="proj.water.try">▶ 试试设置面板</button>
+        <button class="mini-btn" id="openWaterDl" data-i18n="proj.water.dl">⬇ 下载 .zip</button>
+        <button class="mini-btn p" id="openWaterGuide" data-i18n="proj.water.guide">📖 使用说明</button>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="pic" style="background:linear-gradient(135deg,#ffd803,#f582ae)"><span class="badge">NEW</span><span class="ico-lg">🗂️</span></div>
+      <h4 data-i18n="proj.tab.t">一键收纳标签页</h4>
+      <p data-i18n="proj.tab.d">浏览器开了 50 个标签页关不下手?一键让 AI 按主题分组(工作/学习/购物/八卦),自动归档进侧边栏,下次一键恢复。再也不用 Cmd+W 时心痛。</p>
+      <div class="stack"><span>Chrome Ext</span><span>React</span><span>LLM</span></div>
+      <div class="actions">
+        <button class="mini-btn y" id="openTabDemo" data-i18n="proj.tab.try">▶ 看看效果</button>
+        <button class="mini-btn" id="openTabDl" data-i18n="proj.tab.dl">⬇ 下载 .zip</button>
+        <button class="mini-btn p" id="openTabGuide" data-i18n="proj.tab.guide">📖 使用说明</button>
+      </div>
+    </article>
+
+    <article class="proj coming">
+      <div class="big">TBC...</div>
+      <p data-i18n="proj.tbc">下一个奇怪的小玩意正在构思中,敬请期待 ✨</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============== 实验室 ============== -->
+<section id="lab">
+  <h2 class="sec-title" data-i18n="lab.title">小姜的实验室</h2>
+  <p class="sec-lead" data-i18n="lab.lead">放一些"周末写完就上线"的玩具。可以直接玩,可以留言。玩坏了也没关系。</p>
+
+  <!-- Lab #1: 去过和没去过的好地方 -->
+  <div style="margin-bottom:50px">
+    <h3 style="font-family:'Bangers',sans-serif;font-size:30px;letter-spacing:1.5px;margin-bottom:8px">📍 <span data-i18n="places.title">去过 / 没去过的好地方</span></h3>
+    <p style="margin-bottom:18px;font-size:15px;line-height:1.6;color:#333" data-i18n="places.lead">中国首批 5A 景区 + 世界遗产 一共 104 个。绿色 = 我去过,灰色 = 还没去。点 "我也去过 ❤️" 给同款打 call,点 "💬" 在那个地方下面留言(支持匿名)。</p>
+
+    <div class="places-summary">
+      <div class="stat"><b id="visitedCount">0</b><span data-i18n="places.s1">/104 已打卡</span></div>
+      <div class="stat"><b id="totalLikes">0</b><span data-i18n="places.s2">人和我同款足迹</span></div>
+      <div class="stat"><b id="msgCount">0</b><span data-i18n="places.s3">条点位留言</span></div>
+    </div>
+
+    <div class="region-tabs" id="regionTabs"></div>
+    <div class="place-grid" id="placeGrid"></div>
+  </div>
+
+  <!-- Lab #2 + #3 -->
+  <div class="grid3">
+    <article class="proj" style="grid-column:span 2">
+      <div class="pic" style="background:radial-gradient(circle at 30% 30%,#ffd803,#f582ae 60%,#001858);height:120px"><span class="badge">DEMO</span><span class="ico-lg">🔮</span></div>
+      <h4 data-i18n="fortune.t">AI 算命小工具</h4>
+      <p style="font-size:14px;color:#444" data-i18n="fortune.d">填一下生日和今天的心情,AI 给你来一段"赛博占卜"。仅供娱乐,不要当真。</p>
+      <div class="fortune" style="margin-top:14px;box-shadow:none;border:none;padding:0">
+        <div class="form">
+          <div><label data-i18n="fortune.l1">生日</label><input type="date" id="fBirth"></div>
+          <div><label data-i18n="fortune.l2">星座</label>
+            <select id="fSign">
+              <option value="">不知道,随机</option>
+              <option>白羊</option><option>金牛</option><option>双子</option><option>巨蟹</option>
+              <option>狮子</option><option>处女</option><option>天秤</option><option>天蝎</option>
+              <option>射手</option><option>摩羯</option><option>水瓶</option><option>双鱼</option>
+            </select>
+          </div>
+          <div><label data-i18n="fortune.l3">今天的心情</label>
+            <select id="fMood">
+              <option value="平淡">平淡</option><option value="开心">开心</option>
+              <option value="焦虑">焦虑</option><option value="emo">emo</option>
+              <option value="想搞钱">想搞钱</option><option value="单身想脱单">单身想脱单</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn red" id="fortuneBtn" style="font-size:16px;padding:10px 20px" data-i18n="fortune.go">🔮 开始占卜</button>
+        <div class="result" id="fortuneResult" data-i18n="fortune.tip">点上面按钮 ↑ 让宇宙告诉你点什么...</div>
+      </div>
+    </article>
+
+    <article class="proj coming">
+      <div class="big">TBC...</div>
+      <p data-i18n="lab.tbc">下一个实验正在脑子里发酵 🧠</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============== 联系 ============== -->
+<section id="contact">
+  <h2 class="sec-title" data-i18n="contact.title">怎么找到我</h2>
+  <div class="contact">
+    <div class="big" data-i18n-html="contact.big">想搭话?<br/><em>下面三个口子都通到我。</em></div>
+    <div class="panel">
+      <p style="font-size:16px;line-height:1.7" data-i18n="contact.lead">最爱的方式是公众号留言 —— 我会在地铁上、咖啡厅里慢慢回。代码相关上 GitHub,正经事发邮件。</p>
+      <div class="links">
+        <a href="https://github.com" target="_blank">
+          <span><b>⭐ GitHub</b><br/><small style="color:#666">github.com/your-handle</small></span>
+          <span>↗</span>
+        </a>
+        <a href="mailto:hi@jiang.dev">
+          <span><b>✉️ 邮箱</b><br/><small style="color:#666" data-i18n="contact.mail.note">正经合作首选 / 24h 内回</small></span>
+          <span>↗</span>
+        </a>
+        <button id="openWechatQR">
+          <span><b>💬 <span data-i18n="contact.wechat.t">微信公众号</span></b><br/><small style="color:#666" data-i18n="contact.wechat.note">关注「小姜的客厅」 → 后台留言 → 我会回</small></span>
+          <span>↗</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer data-i18n="footer">© 2026 小姜的网络客厅 · Built with ☕ + a lot of 🤪 vibes</footer>
+
+<!-- 喝水插件设置 demo -->
+<div class="modal-bg" id="waterModal" role="dialog">
+  <div class="modal-card">
+    <h4>💧 <span data-i18n="water.t">喝水提醒 · 设置</span></h4>
+    <p class="lead" data-i18n="water.lead">这是装在 Chrome 上的实际界面预览。试试调整,下面会实时给一段"今日提醒计划"。</p>
+    <label data-i18n="water.l1">提醒间隔</label>
+    <select id="wInterval">
+      <option value="30">每 30 分钟</option>
+      <option value="45" selected>每 45 分钟</option>
+      <option value="60">每 60 分钟</option>
+      <option value="90">每 90 分钟</option>
+    </select>
+    <div class="row">
+      <div><label data-i18n="water.l2">每次毫升</label><input type="number" id="wMl" value="200" min="50" max="500" step="50"></div>
+      <div><label data-i18n="water.l3">每日目标</label><input type="number" id="wGoal" value="2000" min="500" max="4000" step="100"></div>
+    </div>
+    <div class="row">
+      <div><label data-i18n="water.l4">免打扰开始</label><input type="time" id="wStart" value="22:00"></div>
+      <div><label data-i18n="water.l5">免打扰结束</label><input type="time" id="wEnd" value="08:00"></div>
+    </div>
+    <div class="preview" id="wPreview"></div>
+    <div class="actions">
+      <button class="btn alt" id="closeWaterModal" style="font-size:14px;padding:8px 16px" data-i18n="water.cancel">关闭</button>
+      <button class="btn" id="saveWater" style="font-size:14px;padding:8px 16px" data-i18n="water.save">假装保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 喝水插件:下载弹窗 -->
+<div class="modal-bg" id="waterDlModal" role="dialog">
+  <div class="modal-card">
+    <h4>💧 <span data-i18n="water.dl.t">下载 · 喝水提醒小助手</span></h4>
+    <p class="lead" data-i18n="water.dl.lead">支持 Chrome / Edge / Arc。装完后右上角会出现一个小水滴图标。</p>
+    <div class="dl-block">
+      <div class="icon">💧</div>
+      <div class="name">Hydration Buddy</div>
+      <div class="ver" data-i18n="water.dl.ver">v1.2.0 · 480 KB · 仅本地存储 · 无追踪</div>
+      <div class="pending-badge"><span class="blink"></span><span data-i18n="water.dl.pending">待上架 · Chrome 商店审核中</span></div>
+      <a class="dl-primary" href="./hydration-buddy-v1.2.0.zip" download data-i18n-html="water.dl.primary">⬇ 直接下载 .zip<small>从这个网站</small></a>
+      <span class="store-btn disabled" data-i18n="water.dl.store">Chrome 商店(待上架)</span>
+      <div class="install-steps" data-i18n-html="water.dl.install">
+        <h6>装上它(30 秒)</h6>
+        <ol>
+          <li>下载完后双击解压。</li>
+          <li>地址栏输入 <span class="kbd">chrome://extensions</span></li>
+          <li>右上角打开「开发者模式」。</li>
+          <li>点「加载已解压的扩展程序」 → 选刚解压的文件夹。</li>
+          <li>右上角看到 💧 图标 = 装好了。</li>
+        </ol>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn alt" id="closeWaterDl" style="font-size:14px;padding:8px 16px" data-i18n="water.cancel">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- 喝水插件:使用说明弹窗 -->
+<div class="modal-bg" id="waterGuideModal" role="dialog">
+  <div class="modal-card wide">
+    <h4>📖 <span data-i18n="water.guide.t">使用说明 · 喝水提醒</span></h4>
+    <p class="lead" data-i18n="water.guide.lead">三步上车,从此告别下午 4 点头疼。</p>
+    <div class="md-block" data-i18n-html="water.guide.body">
+      <h5>① 装上插件</h5>
+      <ol>
+        <li>点 <code>下载</code> 按钮去 Chrome 商店,或本地 <span class="kbd">chrome://extensions</span> 加载已解压版本。</li>
+        <li>装完会看到右上角多了一个 💧 图标。</li>
+      </ol>
+      <h5>② 配置提醒</h5>
+      <ol>
+        <li>点 💧 图标 → 进入设置面板(就是上一个弹窗那个)。</li>
+        <li>设置 <b>提醒间隔 / 每次毫升 / 每日目标</b>。</li>
+        <li>把 <b>免打扰时段</b> 设成你睡觉的时间,半夜不会被吵。</li>
+      </ol>
+      <h5>③ 开始喝</h5>
+      <ul>
+        <li>到点会有桌面通知 <span class="kbd">叮~ 喝水啦</span>。</li>
+        <li>点通知里的 <b>我喝了</b> 累计今日水量;点 <b>稍后提醒</b> 顺延 5 分钟。</li>
+        <li>会议中?按 <span class="kbd">⌘ Shift H</span> 一键静默 1 小时。</li>
+      </ul>
+      <h5>常见问题</h5>
+      <ul>
+        <li><b>不弹通知?</b> 系统设置 → 通知 → 给 Chrome 打开权限。</li>
+        <li><b>数据存哪儿?</b> 全部在浏览器本地,不上传任何服务器。</li>
+      </ul>
+    </div>
+    <div class="actions">
+      <button class="btn alt" id="closeWaterGuide" style="font-size:14px;padding:8px 16px" data-i18n="water.cancel">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- 收纳标签插件:效果预览弹窗 -->
+<div class="modal-bg" id="tabDemoModal" role="dialog">
+  <div class="modal-card wide">
+    <h4>🗂️ <span data-i18n="tab.demo.t">效果预览 · 一键收纳标签页</span></h4>
+    <p class="lead" data-i18n="tab.demo.lead">下面是 AI 识别 12 个标签页之后的归档结果(模拟)。</p>
+    <div class="tab-demo">
+      <div class="tab-group">
+        <div class="gh"><b>💼 <span data-i18n="tab.g1">工作 · 读懂这份 PRD</span></b><span class="cnt">4</span></div>
+        <div class="tab-row"><span class="fav"></span><span>Notion · Q3 OKR draft</span><span class="url">notion.so</span></div>
+        <div class="tab-row"><span class="fav"></span><span>Figma · 客厅 v3 设计稿</span><span class="url">figma.com</span></div>
+        <div class="tab-row"><span class="fav"></span><span>Slack · #design-review</span><span class="url">slack.com</span></div>
+        <div class="tab-row"><span class="fav"></span><span>Lark Doc · 会议纪要 5/14</span><span class="url">larksuite.com</span></div>
+      </div>
+      <div class="tab-group">
+        <div class="gh"><b>📚 <span data-i18n="tab.g2">学习 · LLM 速通</span></b><span class="cnt">3</span></div>
+        <div class="tab-row"><span class="fav" style="background:var(--accent2)"></span><span>Anthropic Docs · Tool Use</span><span class="url">docs.anthropic.com</span></div>
+        <div class="tab-row"><span class="fav" style="background:var(--accent2)"></span><span>arXiv · 2401.xxxx</span><span class="url">arxiv.org</span></div>
+        <div class="tab-row"><span class="fav" style="background:var(--accent2)"></span><span>YouTube · Andrej Karpathy</span><span class="url">youtube.com</span></div>
+      </div>
+      <div class="tab-group">
+        <div class="gh"><b>🛒 <span data-i18n="tab.g3">购物 · 别再加购了</span></b><span class="cnt">3</span></div>
+        <div class="tab-row"><span class="fav" style="background:var(--yellow)"></span><span>淘宝 · 机械键盘 茶轴</span><span class="url">taobao.com</span></div>
+        <div class="tab-row"><span class="fav" style="background:var(--yellow)"></span><span>京东 · 显示器支架</span><span class="url">jd.com</span></div>
+        <div class="tab-row"><span class="fav" style="background:var(--yellow)"></span><span>得物 · Air Max</span><span class="url">dewu.com</span></div>
+      </div>
+      <div class="tab-group">
+        <div class="gh"><b>🍿 <span data-i18n="tab.g4">摸鱼 · 别看了</span></b><span class="cnt">2</span></div>
+        <div class="tab-row"><span class="fav" style="background:var(--red)"></span><span>小红书 · 上海 brunch top10</span><span class="url">xiaohongshu.com</span></div>
+        <div class="tab-row"><span class="fav" style="background:var(--red)"></span><span>B站 · 一周热门</span><span class="url">bilibili.com</span></div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn alt" id="closeTabDemo" style="font-size:14px;padding:8px 16px" data-i18n="water.cancel">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- 收纳标签:下载弹窗 -->
+<div class="modal-bg" id="tabDlModal" role="dialog">
+  <div class="modal-card">
+    <h4>🗂️ <span data-i18n="tab.dl.t">下载 · 一键收纳标签页</span></h4>
+    <p class="lead" data-i18n="tab.dl.lead">用了你自己的 LLM key(OpenAI / Claude / 国产模型都行),数据不过我服务器。</p>
+    <div class="dl-block">
+      <div class="icon">🗂️</div>
+      <div class="name">One-Tap Tab Stash</div>
+      <div class="ver" data-i18n="tab.dl.ver">v0.4.1 · 1.1 MB · BYO LLM key · 开源</div>
+      <div class="pending-badge"><span class="blink"></span><span data-i18n="tab.dl.pending">待上架 · Chrome 商店审核中</span></div>
+      <a class="dl-primary" href="./tab-stash-v0.4.1.zip" download data-i18n-html="tab.dl.primary">⬇ 直接下载 .zip<small>从这个网站</small></a>
+      <span class="store-btn disabled" data-i18n="tab.dl.store">Chrome 商店(待上架)</span>
+      <div class="install-steps" data-i18n-html="tab.dl.install">
+        <h6>装上它(30 秒)</h6>
+        <ol>
+          <li>下载完后双击解压。</li>
+          <li>地址栏输入 <span class="kbd">chrome://extensions</span></li>
+          <li>右上角打开「开发者模式」。</li>
+          <li>点「加载已解压的扩展程序」 → 选刚解压的文件夹。</li>
+          <li>右上角看到 🗂️ 图标 = 装好了,先去设置里填 LLM key。</li>
+        </ol>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn alt" id="closeTabDl" style="font-size:14px;padding:8px 16px" data-i18n="water.cancel">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- 收纳标签:使用说明 -->
+<div class="modal-bg" id="tabGuideModal" role="dialog">
+  <div class="modal-card wide">
+    <h4>📖 <span data-i18n="tab.guide.t">使用说明 · 标签收纳</span></h4>
+    <p class="lead" data-i18n="tab.guide.lead">第一次用先填 API key,之后就是一键的事。</p>
+    <div class="md-block" data-i18n-html="tab.guide.body">
+      <h5>① 填 LLM Key</h5>
+      <ol>
+        <li>点扩展图标 → 设置 → <b>API Key</b>。</li>
+        <li>支持:OpenAI / Anthropic / DeepSeek / 月之暗面 / 智谱。</li>
+        <li>Key 只存浏览器本地,不上报任何地方。</li>
+      </ol>
+      <h5>② 一键归档</h5>
+      <ol>
+        <li>50 个标签开累了 → 按 <span class="kbd">⌘ Shift S</span>(或点工具栏图标)。</li>
+        <li>AI 会用每个标签的标题 + URL 给你分组,常见组:工作 / 学习 / 购物 / 摸鱼 / 待读。</li>
+        <li>不满意?直接拖到别的组,下次它会记住你的偏好。</li>
+      </ol>
+      <h5>③ 一键恢复</h5>
+      <ul>
+        <li>侧边栏选一个组 → <b>恢复全部</b> 或 <b>挑几个恢复</b>。</li>
+        <li>找东西用顶部搜索框,模糊搜标题/URL/分组都行。</li>
+      </ul>
+      <h5>隐私</h5>
+      <ul>
+        <li>归档的标签信息只发给 <b>你自己</b> 的 LLM endpoint,不经过我的服务器。</li>
+        <li>所有数据 = 浏览器本地 IndexedDB,卸载即清空。</li>
+      </ul>
+    </div>
+    <div class="actions">
+      <button class="btn alt" id="closeTabGuide" style="font-size:14px;padding:8px 16px" data-i18n="water.cancel">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- 微信公众号 QR -->
+<div class="qr-modal-bg" id="qrModal" role="dialog">
+  <div class="qr-card">
+    <h4 data-i18n="qr.t">关注公众号</h4>
+    <p style="font-size:14px;line-height:1.6" data-i18n="qr.lead">扫码关注「<b>小姜的客厅</b>」,后台回复任意内容,我会收到。</p>
+    <div class="qr-img" id="qrImg">[这里替换成真实 QR 图]</div>
+    <p data-i18n="qr.note">建议把这个 div 替换为 <code>&lt;img src="你的二维码.png"&gt;</code></p>
+    <button class="btn" id="closeQR" style="font-size:14px;padding:8px 16px;margin-top:12px" data-i18n="qr.close">关闭</button>
+  </div>
+</div>
+
+<!-- Chat (留言瓶) -->
+<button class="chat-fab" id="chatFab" aria-label="chat">💬<span class="ping"></span></button>
+<div class="chat-panel" id="chatPanel" role="dialog">
+  <div class="chat-head">
+    <h4 data-i18n="chat.title">💌 留言瓶</h4>
+    <button class="close" id="chatClose">✕</button>
+  </div>
+  <div class="chat-tip" data-i18n-html="chat.tip">这里的消息会通过<b>微信公众号「小姜的客厅」</b>发到我的微信 —— 我看到会在公众号后台回你。先聊会儿,或者直接留下邮箱也行。</div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg bot" data-i18n="chat.welcome">嘿,我是小姜的 AI 分身,帮你打个前站。聊聊吧 :) 你的话我会同步给小姜本人。</div>
+  </div>
+  <form class="chat-input" id="chatForm" autocomplete="off">
+    <input id="chatInput" data-i18n-placeholder="chat.placeholder" placeholder="想说点什么..." />
+    <button type="submit" data-i18n="chat.send">SEND</button>
+  </form>
+</div>
+
+<!-- 数据(内联,免去本地文件加载失败) -->
+<script>
+window.PLACES = {
+  "华北及东北": [
+    {city:"北京", name:"故宫博物院", tag:"首批5A · 世界遗产", visited:true},
+    {city:"北京", name:"天坛公园", tag:"首批5A · 世界遗产", visited:true},
+    {city:"北京", name:"颐和园", tag:"首批5A · 世界遗产", visited:true},
+    {city:"北京", name:"八达岭长城", tag:"首批5A · 世界遗产", visited:true},
+    {city:"北京", name:"周口店北京人遗址", tag:"世界遗产", visited:true},
+    {city:"北京", name:"北京中轴线", tag:"世界遗产", visited:true},
+    {city:"天津", name:"天津古文化街(津门故里)", tag:"首批5A", visited:true},
+    {city:"天津", name:"盘山风景名胜区", tag:"首批5A", visited:true},
+    {city:"河北 秦皇岛", name:"山海关景区", tag:"首批5A", visited:false},
+    {city:"河北 保定", name:"安新白洋淀景区", tag:"首批5A", visited:true},
+    {city:"河北 承德", name:"承德避暑山庄及周围寺庙", tag:"首批5A · 世界遗产", visited:false},
+    {city:"山西 大同", name:"云冈石窟", tag:"首批5A · 世界遗产", visited:true},
+    {city:"山西 忻州", name:"五台山", tag:"首批5A · 世界遗产", visited:false},
+    {city:"山西 晋中", name:"平遥古城", tag:"世界遗产", visited:false},
+    {city:"辽宁 沈阳", name:"沈阳市植物园", tag:"首批5A", visited:true},
+    {city:"辽宁 大连", name:"老虎滩海洋公园", tag:"首批5A", visited:true},
+    {city:"辽宁 沈阳", name:"沈阳故宫", tag:"世界遗产", visited:true},
+    {city:"辽宁/吉林", name:"高句丽王城王陵及贵族墓葬", tag:"世界遗产", visited:false},
+    {city:"吉林 长春", name:"伪满皇宫博物院", tag:"首批5A", visited:false},
+    {city:"吉林", name:"长白山景区", tag:"首批5A", visited:false},
+    {city:"黑龙江 哈尔滨", name:"太阳岛公园", tag:"首批5A", visited:false},
+    {city:"内蒙古 锡林郭勒", name:"元上都遗址", tag:"世界遗产", visited:false},
+    {city:"内蒙古 阿拉善", name:"巴丹吉林沙漠—沙山湖泊群", tag:"世界遗产", visited:false}
+  ],
+  "华东": [
+    {city:"上海", name:"东方明珠广播电视塔", tag:"首批5A", visited:true},
+    {city:"上海", name:"上海野生动物园", tag:"首批5A", visited:true},
+    {city:"江苏 南京", name:"钟山风景名胜区·中山陵园", tag:"首批5A", visited:true},
+    {city:"江苏 无锡", name:"央视无锡影视基地三国水浒景区", tag:"首批5A", visited:false},
+    {city:"江苏 苏州", name:"苏州古典园林(拙政园)", tag:"首批5A · 世界遗产", visited:true},
+    {city:"江苏 苏州", name:"周庄古镇", tag:"首批5A", visited:true},
+    {city:"浙江 杭州", name:"西湖风景名胜区", tag:"首批5A · 世界遗产", visited:true},
+    {city:"浙江 温州", name:"雁荡山", tag:"首批5A", visited:true},
+    {city:"浙江 舟山", name:"普陀山", tag:"首批5A", visited:false},
+    {city:"浙江 杭州", name:"良渚古城遗址", tag:"世界遗产", visited:false},
+    {city:"安徽 黄山", name:"黄山风景区", tag:"首批5A · 世界遗产", visited:true},
+    {city:"安徽 池州", name:"九华山", tag:"首批5A", visited:true},
+    {city:"安徽 黄山", name:"皖南古村落—西递、宏村", tag:"世界遗产", visited:true},
+    {city:"福建 厦门", name:"鼓浪屿", tag:"首批5A · 世界遗产", visited:true},
+    {city:"福建 南平", name:"武夷山", tag:"首批5A · 世界遗产", visited:true},
+    {city:"福建", name:"福建土楼", tag:"世界遗产", visited:false},
+    {city:"福建 泉州", name:"泉州:宋元中国的世界海洋商贸中心", tag:"世界遗产", visited:true},
+    {city:"江西 九江", name:"庐山", tag:"首批5A · 世界遗产", visited:true},
+    {city:"江西 吉安", name:"井冈山", tag:"首批5A", visited:true},
+    {city:"江西 上饶", name:"三清山国家公园", tag:"世界遗产", visited:true},
+    {city:"山东 烟台", name:"蓬莱阁", tag:"首批5A", visited:false},
+    {city:"山东 济宁", name:"曲阜明故城(三孔)", tag:"首批5A · 世界遗产", visited:false},
+    {city:"山东 泰安", name:"泰山", tag:"首批5A · 世界遗产", visited:true}
+  ],
+  "华中及华南": [
+    {city:"河南 登封", name:"嵩山少林景区", tag:"首批5A · 世界遗产", visited:false},
+    {city:"河南 洛阳", name:"龙门石窟", tag:"首批5A · 世界遗产", visited:false},
+    {city:"河南 焦作", name:"云台山", tag:"首批5A", visited:false},
+    {city:"河南 安阳", name:"殷墟", tag:"世界遗产", visited:false},
+    {city:"湖北 武汉", name:"黄鹤楼公园", tag:"首批5A", visited:false},
+    {city:"湖北 宜昌", name:"三峡大坝旅游区", tag:"首批5A", visited:false},
+    {city:"湖北 十堰", name:"武当山古建筑群", tag:"世界遗产", visited:false},
+    {city:"湖北", name:"湖北神农架", tag:"世界遗产", visited:false},
+    {city:"湖南 衡阳", name:"南岳衡山", tag:"首批5A", visited:false},
+    {city:"湖南 张家界", name:"武陵源", tag:"首批5A · 世界遗产", visited:true},
+    {city:"广东 广州", name:"长隆旅游度假区", tag:"首批5A", visited:false},
+    {city:"广东 深圳", name:"华侨城旅游度假区", tag:"首批5A", visited:false},
+    {city:"广东 江门", name:"开平碉楼与村落", tag:"世界遗产", visited:false},
+    {city:"广西 桂林", name:"漓江景区", tag:"首批5A · 世界遗产", visited:true},
+    {city:"广西 桂林", name:"乐满地度假世界", tag:"首批5A", visited:false},
+    {city:"广西 崇左", name:"左江花山岩画", tag:"世界遗产", visited:false},
+    {city:"海南 三亚", name:"南山文化旅游区", tag:"首批5A", visited:false},
+    {city:"海南 三亚", name:"南山大小洞天", tag:"首批5A", visited:false}
+  ],
+  "西南": [
+    {city:"重庆", name:"大足石刻", tag:"首批5A · 世界遗产", visited:false},
+    {city:"重庆", name:"巫山小三峡-小小三峡", tag:"首批5A", visited:false},
+    {city:"四川 成都", name:"青城山-都江堰", tag:"首批5A · 世界遗产", visited:true},
+    {city:"四川 乐山", name:"峨眉山", tag:"首批5A · 世界遗产", visited:false},
+    {city:"四川 阿坝", name:"九寨沟", tag:"首批5A · 世界遗产", visited:false},
+    {city:"四川", name:"大熊猫栖息地", tag:"世界遗产", visited:true},
+    {city:"四川 阿坝", name:"黄龙风景名胜区", tag:"世界遗产", visited:false},
+    {city:"贵州 安顺", name:"黄果树大瀑布", tag:"首批5A", visited:true},
+    {city:"贵州 安顺", name:"龙宫景区", tag:"首批5A", visited:false},
+    {city:"贵州 铜仁", name:"梵净山", tag:"世界遗产", visited:false},
+    {city:"云南 昆明", name:"石林风景区", tag:"首批5A · 世界遗产", visited:false},
+    {city:"云南 丽江", name:"玉龙雪山", tag:"首批5A · 世界遗产", visited:false},
+    {city:"云南 丽江", name:"丽江古城", tag:"世界遗产", visited:false},
+    {city:"云南 红河", name:"哈尼梯田", tag:"世界遗产", visited:false},
+    {city:"云南", name:"三江并流保护区", tag:"世界遗产", visited:false},
+    {city:"云南 玉溪", name:"澄江化石遗址", tag:"世界遗产", visited:false},
+    {city:"云南 普洱", name:"景迈山古茶林", tag:"世界遗产", visited:false},
+    {city:"西藏 拉萨", name:"布达拉宫", tag:"世界遗产", visited:false}
+  ],
+  "西北及港澳": [
+    {city:"陕西 西安", name:"秦始皇兵马俑", tag:"首批5A · 世界遗产", visited:true},
+    {city:"陕西 西安", name:"华清池", tag:"首批5A", visited:true},
+    {city:"陕西 延安", name:"黄帝陵", tag:"首批5A", visited:false},
+    {city:"甘肃 嘉峪关", name:"嘉峪关文物景区", tag:"首批5A", visited:true},
+    {city:"甘肃 平凉", name:"崆峒山", tag:"首批5A", visited:false},
+    {city:"甘肃 酒泉", name:"莫高窟", tag:"世界遗产", visited:true},
+    {city:"青海", name:"可可西里", tag:"世界遗产", visited:false},
+    {city:"宁夏 石嘴山", name:"沙湖", tag:"首批5A", visited:false},
+    {city:"宁夏 中卫", name:"沙坡头", tag:"首批5A", visited:false},
+    {city:"宁夏 银川", name:"西夏陵", tag:"世界遗产", visited:true},
+    {city:"新疆", name:"天山天池", tag:"首批5A · 世界遗产", visited:false},
+    {city:"新疆 吐鲁番", name:"葡萄沟", tag:"首批5A", visited:false},
+    {city:"新疆 阿勒泰", name:"喀纳斯", tag:"首批5A", visited:false},
+    {city:"澳门", name:"澳门历史城区", tag:"世界遗产", visited:false}
+  ],
+  "跨区域": [
+    {city:"多地", name:"长城", tag:"世界遗产", visited:true},
+    {city:"多地", name:"明清皇家陵寝", tag:"世界遗产", visited:true},
+    {city:"多地", name:"中国南方喀斯特", tag:"世界遗产", visited:true},
+    {city:"多地", name:"中国丹霞", tag:"世界遗产", visited:true},
+    {city:"多地", name:"大运河", tag:"世界遗产", visited:true},
+    {city:"多地", name:"丝绸之路:长安-天山廊道", tag:"世界遗产", visited:true},
+    {city:"多地", name:"土司遗址", tag:"世界遗产", visited:false},
+    {city:"多地", name:"中国黄(渤)海候鸟栖息地", tag:"世界遗产", visited:false}
+  ]
+};
+</script>
+<script>
+/* ============================================================
+   1) i18n
+============================================================ */
+const I18N = {
+  zh:{
+    'nav.about':'关于','nav.map':'地图','nav.projects':'小工具','nav.lab':'实验室','nav.contact':'联系',
+    'hero.greet':'推门进来 · 别客气',
+    'hero.title':'这里是<br/><em>小姜</em>的<br/>网络客厅。',
+    'hero.sub':'这里不是简历,也不是作品集 —— 只是我在互联网上的<b>一间小房子</b>。<br/>放了一些自己写的小工具、去过的地方、稀奇古怪的实验。<br/>欢迎随便逛、随便点、有话想说就<b>留言</b>给我 :)',
+    'hero.cta1':'看看我做的小玩意','hero.cta2':'逛逛实验室','hero.cta3':'给我留个言',
+    'status.title':'// 客厅状态','status.k1':'现在在','status.v1':'上海 · 写代码',
+    'status.k2':'最近在想','status.v2':'被AI替代后去哪里摇奶茶','status.k3':'最近在做','status.v3':'这个网站',
+    'status.k4':'咖啡量','status.v4':'3 杯 / 天',
+    'map.title':'想看哪一间屋?',
+    'map.c1':'About<small>关于小姜</small>','map.c2':'小工具<small>我写的插件</small>','map.c3':'实验室<small>奇奇怪怪的玩意</small>',
+    'map.c4':'去过的地方 · 一起打卡','map.c5':'给我留言','map.c6':'联系',
+    'about.title':'关于小姜',
+    'about.lead':'尝试了蛮多行业,总想做点更好玩的。白天打工写需求,晚上 vibe-code 自娱自乐。把 AI 当第二个自己,让无聊的事自动化、让脑洞快速验证。这个网站就是顺手 vibe 出来的。',
+    'about.t1.k':'现在','about.t1.v':'在某厂当 PM,n = 5.5',
+    'about.t2.k':'业余','about.t2.v':'聚餐专用选餐厅 Bot · 著名爬山虎',
+    'about.t3.k':'爱好','about.t3.v':'咖啡 · 旅行打卡 · 装修房东的房子',
+    'proj.title':'我做的小玩意','proj.lead':'几乎都是 Chrome 插件。点开看说明、下载,或者点"试试看"直接预览插件设置面板。',
+    'proj.water.t':'喝水提醒小助手','proj.water.d':'装在 Chrome 上的喝水提醒。可以自定义提醒间隔、每次喝多少毫升、白天/夜间静默时段。会用桌面通知温柔地戳你一下。',
+    'proj.water.try':'▶ 试试设置面板','proj.water.dl':'⬇ 下载 .zip','proj.water.guide':'📖 使用说明',
+    'proj.tab.t':'一键收纳标签页','proj.tab.d':'浏览器开了 50 个标签页关不下手?一键让 AI 按主题分组(工作/学习/购物/八卦),自动归档进侧边栏,下次一键恢复。再也不用 Cmd+W 时心痛。',
+    'proj.tab.dl':'⬇ 下载 .zip','proj.tab.guide':'📖 使用说明',
+    'proj.tbc':'下一个奇怪的小玩意正在构思中,敬请期待 ✨',
+    'lab.title':'小姜的实验室','lab.lead':'放一些"周末写完就上线"的玩具。可以直接玩,可以留言。玩坏了也没关系。',
+    'places.title':'去过 / 没去过的好地方',
+    'places.lead':'中国首批 5A 景区 + 世界遗产 一共 104 个。绿色 = 我去过,灰色 = 还没去。点 "我也去过 ❤️" 给同款打 call,点 "💬" 在那个地方下面留言(支持匿名)。',
+    'places.s1':'/104 已打卡','places.s2':'人和我同款足迹','places.s3':'条点位留言',
+    'fortune.t':'AI 算命小工具','fortune.d':'填一下生日和今天的心情,AI 给你来一段"赛博占卜"。仅供娱乐,不要当真。',
+    'fortune.l1':'生日','fortune.l2':'星座','fortune.l3':'今天的心情','fortune.go':'🔮 开始占卜',
+    'fortune.tip':'点上面按钮 ↑ 让宇宙告诉你点什么...',
+    'lab.tbc':'下一个实验正在脑子里发酵 🧠',
+    'contact.title':'怎么找到我',
+    'contact.big':'想搭话?<br/><em>下面三个口子都通到我。</em>',
+    'contact.lead':'最爱的方式是公众号留言 —— 我会在地铁上、咖啡厅里慢慢回。代码相关上 GitHub,正经事发邮件。',
+    'contact.mail.note':'正经合作首选 / 24h 内回',
+    'contact.wechat.t':'微信公众号','contact.wechat.note':'关注「小姜的客厅」 → 后台留言 → 我会回',
+    'footer':'© 2026 小姜的网络客厅 · Built with ☕ + a lot of 🤪 vibes',
+    'chat.title':'💌 留言瓶',
+    'chat.tip':'这里的消息会通过<b>微信公众号「小姜的客厅」</b>发到我的微信 —— 我看到会在公众号后台回你。先聊会儿,或者直接留下邮箱也行。',
+    'chat.welcome':'嘿,我是小姜的 AI 分身,帮你打个前站。聊聊吧 :) 你的话我会同步给小姜本人。',
+    'chat.placeholder':'想说点什么...','chat.send':'发送',
+    'chat.error':'⚠️ 服务暂时不在,过会儿再试。',
+    'chat.thinking':'思考中...',
+    'chat.forwarded':'☑ 已转给小姜的微信,他看到会在公众号后台回你。',
+    'water.t':'喝水提醒 · 设置','water.lead':'这是装在 Chrome 上的实际界面预览。试试调整,下面会实时给一段"今日提醒计划"。',
+    'water.l1':'提醒间隔','water.l2':'每次毫升','water.l3':'每日目标','water.l4':'免打扰开始','water.l5':'免打扰结束',
+    'water.cancel':'关闭','water.save':'假装保存',
+    'water.dl.t':'下载 · 喝水提醒小助手','water.dl.lead':'支持 Chrome / Edge / Arc。装完后右上角会出现一个小水滴图标。',
+    'water.dl.ver':'v1.2.0 · 480 KB · 仅本地存储 · 无追踪','water.dl.btn':'前往 Chrome 商店',
+    'water.dl.alt':'或者下载 <code>.zip</code> 解压后用「加载已解压的扩展程序」装。<br/>源码在 <a href="https://github.com" target="_blank">GitHub</a> 上。',
+    'water.dl.pending':'待上架 · Chrome 商店审核中',
+    'water.dl.primary':'⬇ 直接下载 .zip<small>从这个网站</small>',
+    'water.dl.store':'Chrome 商店(待上架)',
+    'water.dl.install':'<h6>装上它(30 秒)</h6><ol><li>下载完后双击解压。</li><li>地址栏输入 <span class="kbd">chrome://extensions</span></li><li>右上角打开「开发者模式」。</li><li>点「加载已解压的扩展程序」 → 选刚解压的文件夹。</li><li>右上角看到 💧 图标 = 装好了。</li></ol>',
+    'water.guide.t':'使用说明 · 喝水提醒','water.guide.lead':'三步上车,从此告别下午 4 点头疼。',
+    'water.guide.body':`<h5>① 装上插件</h5><ol><li>点 <code>下载</code> 按钮去 Chrome 商店,或本地 <span class="kbd">chrome://extensions</span> 加载已解压版本。</li><li>装完会看到右上角多了一个 💧 图标。</li></ol><h5>② 配置提醒</h5><ol><li>点 💧 图标 → 进入设置面板(就是上一个弹窗那个)。</li><li>设置 <b>提醒间隔 / 每次毫升 / 每日目标</b>。</li><li>把 <b>免打扰时段</b> 设成你睡觉的时间,半夜不会被吵。</li></ol><h5>③ 开始喝</h5><ul><li>到点会有桌面通知 <span class="kbd">叮~ 喝水啦</span>。</li><li>点通知里的 <b>我喝了</b> 累计今日水量;点 <b>稍后提醒</b> 顺延 5 分钟。</li><li>会议中?按 <span class="kbd">⌘ Shift H</span> 一键静默 1 小时。</li></ul><h5>常见问题</h5><ul><li><b>不弹通知?</b> 系统设置 → 通知 → 给 Chrome 打开权限。</li><li><b>数据存哪儿?</b> 全部在浏览器本地,不上传任何服务器。</li></ul>`,
+    'tab.demo.t':'效果预览 · 一键收纳标签页','tab.demo.lead':'下面是 AI 识别 12 个标签页之后的归档结果(模拟)。',
+    'tab.g1':'工作 · 读懂这份 PRD','tab.g2':'学习 · LLM 速通','tab.g3':'购物 · 别再加购了','tab.g4':'摸鱼 · 别看了',
+    'tab.dl.t':'下载 · 一键收纳标签页','tab.dl.lead':'用了你自己的 LLM key(OpenAI / Claude / 国产模型都行),数据不过我服务器。',
+    'tab.dl.ver':'v0.4.1 · 1.1 MB · BYO LLM key · 开源','tab.dl.btn':'前往 Chrome 商店',
+    'tab.dl.alt':'还在审核?也可以从 <a href="https://github.com" target="_blank">GitHub Releases</a> 直接下 <code>.crx</code>。',
+    'tab.dl.pending':'待上架 · Chrome 商店审核中',
+    'tab.dl.primary':'⬇ 直接下载 .zip<small>从这个网站</small>',
+    'tab.dl.store':'Chrome 商店(待上架)',
+    'tab.dl.install':'<h6>装上它(30 秒)</h6><ol><li>下载完后双击解压。</li><li>地址栏输入 <span class="kbd">chrome://extensions</span></li><li>右上角打开「开发者模式」。</li><li>点「加载已解压的扩展程序」 → 选刚解压的文件夹。</li><li>右上角看到 🗂️ 图标 = 装好了,先去设置里填 LLM key。</li></ol>',
+    'tab.guide.t':'使用说明 · 标签收纳','tab.guide.lead':'第一次用先填 API key,之后就是一键的事。',
+    'tab.guide.body':`<h5>① 填 LLM Key</h5><ol><li>点扩展图标 → 设置 → <b>API Key</b>。</li><li>支持:OpenAI / Anthropic / DeepSeek / 月之暗面 / 智谱。</li><li>Key 只存浏览器本地,不上报任何地方。</li></ol><h5>② 一键归档</h5><ol><li>50 个标签开累了 → 按 <span class="kbd">⌘ Shift S</span>(或点工具栏图标)。</li><li>AI 会用每个标签的标题 + URL 给你分组,常见组:工作 / 学习 / 购物 / 摸鱼 / 待读。</li><li>不满意?直接拖到别的组,下次它会记住你的偏好。</li></ol><h5>③ 一键恢复</h5><ul><li>侧边栏选一个组 → <b>恢复全部</b> 或 <b>挑几个恢复</b>。</li><li>找东西用顶部搜索框,模糊搜标题/URL/分组都行。</li></ul><h5>隐私</h5><ul><li>归档的标签信息只发给 <b>你自己</b> 的 LLM endpoint,不经过我的服务器。</li><li>所有数据 = 浏览器本地 IndexedDB,卸载即清空。</li></ul>`,
+    'proj.tab.try':'▶ 看看效果',
+    'qr.t':'关注公众号','qr.lead':'扫码关注「<b>小姜的客厅</b>」,后台回复任意内容,我会收到。',
+    'qr.note':'建议把这个 div 替换为 <code>&lt;img src="你的二维码.png"&gt;</code>','qr.close':'关闭'
+  },
+  en:{
+    'nav.about':'About','nav.map':'Map','nav.projects':'Tools','nav.lab':'Lab','nav.contact':'Contact',
+    'hero.greet':'Push the door · come in',
+    'hero.title':"Welcome to<br/><em>Jiang's</em><br/>living room.",
+    'hero.sub':"Not a resume, not a portfolio — just <b>a little house</b> I built on the internet.<br/>Some tools I wrote, places I've been, weird experiments I made.<br/>Wander around. Click stuff. <b>Drop me a note</b> if you'd like :)",
+    'hero.cta1':'See my little tools','hero.cta2':'Wander the lab','hero.cta3':'Leave me a note',
+    'status.title':'// room status','status.k1':'currently','status.v1':'Shanghai · coding',
+    'status.k2':'pondering','status.v2':'where to shake bubble tea after AI replaces me','status.k3':'building','status.v3':'this site',
+    'status.k4':'coffee/day','status.v4':'3 cups',
+    'map.title':'Which room?',
+    'map.c1':'About<small>Who I am</small>','map.c2':'Tools<small>my extensions</small>','map.c3':'Lab<small>weird stuff</small>',
+    'map.c4':'Places I have been · join me','map.c5':'Leave a note','map.c6':'Contact',
+    'about.title':'About',
+    'about.lead':"Tried a bunch of industries, always wanted to do something more fun. Day job: PM. Night job: vibe-code with AI for fun. This site itself is one of those vibes.",
+    'about.t1.k':'Now','about.t1.v':'PM at a big tech, n = 5.5',
+    'about.t2.k':'Side','about.t2.v':'Restaurant-picker bot for group dinners · famous-ish ivy gardener',
+    'about.t3.k':'Likes','about.t3.v':"coffee · travel · DIY-ing my landlord's flat",
+    'proj.title':'Little Tools','proj.lead':"Mostly Chrome extensions. Read the guide, install, or try the live demo of their settings panel.",
+    'proj.water.t':'Hydration Buddy','proj.water.d':'A gentle Chrome extension that reminds you to drink water. Custom interval, ml per glass, quiet hours. Sends desktop notifications.',
+    'proj.water.try':'▶ Try the panel','proj.water.dl':'⬇ Download .zip','proj.water.guide':'📖 Guide',
+    'proj.tab.t':'One-Tap Tab Stash','proj.tab.d':"50 tabs open and afraid to close? One click and AI groups them by topic (Work/Study/Shopping/Gossip), stashes them in the sidebar, brings them back later. No more Cmd+W guilt.",
+    'proj.tab.dl':'⬇ Download .zip','proj.tab.guide':'📖 Guide',
+    'proj.tbc':'Brewing the next weird thing... ✨',
+    'lab.title':'The Lab','lab.lead':'Built-in-a-weekend toys. Play. Leave a note. Break them if you want.',
+    'places.title':'Places I have / haven\'t been',
+    'places.lead':"China's first batch of 5A scenic spots + UNESCO sites = 104 places. Green = visited, gray = not yet. Hit \"me too ❤️\" if you've been there, hit \"💬\" to drop a note under that place (anon works).",
+    'places.s1':'/104 visited','places.s2':'walked the same path','places.s3':'place-notes left',
+    'fortune.t':'AI Fortune Teller','fortune.d':"Drop your birthday and today's mood. AI gives you a cyber-fortune. Just for fun.",
+    'fortune.l1':'Birthday','fortune.l2':'Sign','fortune.l3':"Today's mood",'fortune.go':'🔮 Read my fortune',
+    'fortune.tip':'Click ↑ and let the universe whisper...',
+    'lab.tbc':'Next experiment fermenting in my brain 🧠',
+    'contact.title':'Find me',
+    'contact.big':'Wanna talk?<br/><em>Three doors to me.</em>',
+    'contact.lead':"Favorite way: WeChat OA — I reply on subway rides and in cafés. Code stuff on GitHub, formal stuff via email.",
+    'contact.mail.note':'Best for serious things / reply within 24h',
+    'contact.wechat.t':'WeChat Official Account','contact.wechat.note':"Follow → DM in backend → I'll reply",
+    'footer':"© 2026 Jiang's Living Room · Built with ☕ + 🤪 vibes",
+    'chat.title':'💌 Note Bottle',
+    'chat.tip':"Messages go through <b>WeChat OA \"Jiang's Living Room\"</b> to my WeChat — I'll reply via the OA backend. Or just leave your email here.",
+    'chat.welcome':"Hey, I'm Jiang's AI front-desk. Tell me anything — I'll forward it to him :)",
+    'chat.placeholder':'Say something...','chat.send':'SEND',
+    'chat.error':'⚠️ Service is offline. Try later.','chat.thinking':'Thinking...',
+    'chat.forwarded':"☑ Forwarded to Jiang's WeChat. He'll reply via the OA backend.",
+    'water.t':'Hydration · Settings','water.lead':"Live preview of the in-Chrome panel. Tweak and see today's reminder plan below.",
+    'water.l1':'Interval','water.l2':'ml per time','water.l3':'Daily goal','water.l4':'Quiet from','water.l5':'Quiet until',
+    'water.cancel':'Close','water.save':'Pretend save',
+    'water.dl.t':'Install · Hydration Buddy','water.dl.lead':'Chrome / Edge / Arc supported. A 💧 icon shows up top-right after install.',
+    'water.dl.ver':'v1.2.0 · 480 KB · local-only · no tracking','water.dl.btn':'Open Chrome Web Store',
+    'water.dl.alt':'Or grab the <code>.zip</code>, unpack, and use "Load unpacked".<br/>Source on <a href="https://github.com" target="_blank">GitHub</a>.',
+    'water.dl.pending':'Pending · Chrome Web Store review',
+    'water.dl.primary':'⬇ Direct .zip download<small>from this site</small>',
+    'water.dl.store':'Chrome Web Store (pending)',
+    'water.dl.install':'<h6>Install it (30 sec)</h6><ol><li>Unzip the file you just downloaded.</li><li>Open <span class="kbd">chrome://extensions</span> in the address bar.</li><li>Toggle <b>Developer mode</b> (top-right).</li><li>Click <b>Load unpacked</b> → pick the unzipped folder.</li><li>See the 💧 icon top-right → done.</li></ol>',
+    'water.guide.t':'Guide · Hydration Buddy','water.guide.lead':'Three steps. Goodbye 4pm headaches.',
+    'water.guide.body':`<h5>① Install</h5><ol><li>Hit <code>Install</code> for the Web Store, or use <span class="kbd">chrome://extensions</span> → Load unpacked.</li><li>You'll see a 💧 icon top-right.</li></ol><h5>② Configure</h5><ol><li>Click 💧 → Settings (the panel from the previous modal).</li><li>Set <b>interval / ml per glass / daily goal</b>.</li><li>Set <b>Quiet hours</b> to your sleep window so it doesn't ping you at night.</li></ol><h5>③ Drink</h5><ul><li>Desktop notification: <span class="kbd">ding~ time to drink</span>.</li><li>Tap <b>I drank</b> to log the glass; <b>Snooze</b> for +5 min.</li><li>In a meeting? <span class="kbd">⌘ Shift H</span> mutes it for 1 hour.</li></ul><h5>FAQ</h5><ul><li><b>No notifications?</b> System Settings → Notifications → enable Chrome.</li><li><b>Where's my data?</b> Browser-local only. Never leaves your machine.</li></ul>`,
+    'tab.demo.t':'Preview · One-Tap Tab Stash','tab.demo.lead':'Below: AI grouping 12 tabs into folders (mocked).',
+    'tab.g1':'Work · read this PRD','tab.g2':'Study · LLM speedrun','tab.g3':'Shopping · stop adding to cart','tab.g4':'Goofing · close already',
+    'tab.dl.t':'Install · One-Tap Tab Stash','tab.dl.lead':"Bring your own LLM key (OpenAI / Claude / any). Data never hits my server.",
+    'tab.dl.ver':'v0.4.1 · 1.1 MB · BYO LLM key · open source','tab.dl.btn':'Open Chrome Web Store',
+    'tab.dl.alt':'Still in review? Grab the <code>.crx</code> from <a href="https://github.com" target="_blank">GitHub Releases</a>.',
+    'tab.dl.pending':'Pending · Chrome Web Store review',
+    'tab.dl.primary':'⬇ Direct .zip download<small>from this site</small>',
+    'tab.dl.store':'Chrome Web Store (pending)',
+    'tab.dl.install':'<h6>Install it (30 sec)</h6><ol><li>Unzip the file you just downloaded.</li><li>Open <span class="kbd">chrome://extensions</span> in the address bar.</li><li>Toggle <b>Developer mode</b> (top-right).</li><li>Click <b>Load unpacked</b> → pick the unzipped folder.</li><li>See the 🗂️ icon top-right → drop your LLM key in settings.</li></ol>',
+    'tab.guide.t':'Guide · Tab Stash','tab.guide.lead':'First-time setup: drop your API key. Then it\'s one click forever.',
+    'tab.guide.body':`<h5>① Add LLM Key</h5><ol><li>Extension icon → Settings → <b>API Key</b>.</li><li>Supports: OpenAI / Anthropic / DeepSeek / Kimi / Zhipu.</li><li>Stored locally only. Never reported anywhere.</li></ol><h5>② One-tap stash</h5><ol><li>50 tabs open? Hit <span class="kbd">⌘ Shift S</span> (or the toolbar icon).</li><li>AI groups by title + URL: Work / Study / Shopping / Goofing / Read-later.</li><li>Drag tabs between groups — it learns your preferences.</li></ol><h5>③ One-tap restore</h5><ul><li>Pick a group in the sidebar → <b>Restore all</b> or <b>cherry pick</b>.</li><li>Use the top search box to fuzzy-find titles / URLs / groups.</li></ul><h5>Privacy</h5><ul><li>Tab info goes to <b>your</b> LLM endpoint only — never via my server.</li><li>All data lives in browser IndexedDB. Uninstall = wipe.</li></ul>`,
+    'proj.tab.try':'▶ See it work',
+    'qr.t':'Follow on WeChat','qr.lead':"Scan to follow <b>Jiang's Living Room</b>. DM anything in the backend, I'll see it.",
+    'qr.note':'Replace this div with <code>&lt;img src="your-qr.png"&gt;</code>','qr.close':'Close'
+  }
+};
+let LANG = localStorage.getItem('lang') || (navigator.language.startsWith('zh')?'zh':'en');
+function applyI18n(){
+  document.documentElement.lang = LANG==='zh'?'zh-CN':'en';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');const v=I18N[LANG][k];if(v!=null)el.textContent=v});
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');const v=I18N[LANG][k];if(v!=null)el.innerHTML=v});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.getAttribute('data-i18n-placeholder');const v=I18N[LANG][k];if(v!=null)el.setAttribute('placeholder',v)});
+  document.getElementById('langBtn').textContent = LANG==='zh' ? 'EN / 中' : '中 / EN';
+}
+document.getElementById('langBtn').addEventListener('click',()=>{LANG=LANG==='zh'?'en':'zh';localStorage.setItem('lang',LANG);applyI18n();renderPlaces();updatePlacesStats();});
+applyI18n();
+
+/* mobile burger */
+const burger=document.getElementById('burger'),navlist=document.getElementById('navlist');
+burger.addEventListener('click',()=>navlist.classList.toggle('show'));
+navlist.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navlist.classList.remove('show')));
+
+/* ============================================================
+   2) PLACES —— 区域 tabs + 卡片 + 点赞
+============================================================ */
+const REGIONS = Object.keys(window.PLACES);
+let currentRegion = REGIONS[0];
+
+// LocalStorage 存点赞 / 留言(后期换成后端 fetch 即可)
+function lsGet(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}}
+function lsSet(k,v){localStorage.setItem(k,JSON.stringify(v))}
+const STORE = {
+  likes: lsGet('likes',{}),         // {placeName: count}
+  myLikes: lsGet('myLikes',{}),      // {placeName: true}
+  comments: lsGet('comments',{}),    // {placeName: [{name,text,anon,ts}]}
+  openCmt: {}                         // 内存:当前展开的评论框 {placeName: true}
+};
+
+function renderRegionTabs(){
+  const c = document.getElementById('regionTabs');
+  c.innerHTML = REGIONS.map(r=>`<button data-r="${r}" class="${r===currentRegion?'active':''}">${r}</button>`).join('');
+  c.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{currentRegion=b.dataset.r;renderRegionTabs();renderPlaces();}));
+}
+function renderPlaces(){
+  const list = window.PLACES[currentRegion]||[];
+  const grid = document.getElementById('placeGrid');
+  grid.innerHTML = list.map(p=>{
+    const key = p.name;
+    const liked = STORE.myLikes[key];
+    const count = STORE.likes[key]||0;
+    const visited = p.visited;
+    const cmts = STORE.comments[key]||[];
+    const open = STORE.openCmt[key];
+    return `<article class="place ${visited?'visited':''}">
+      <div class="top">
+        <div>
+          <div class="city">${p.city}</div>
+          <div class="name">${p.name}</div>
+        </div>
+        <span class="pin ${visited?'yes':'no'}">${visited?'📍':'📌'}</span>
+      </div>
+      <div><span class="tag">${p.tag}</span></div>
+      <div class="footer">
+        <span class="visited-stamp ${visited?'':'no'}">${visited?(LANG==='zh'?'我去过':'VISITED'):(LANG==='zh'?'还没去':'NOT YET')}</span>
+        <button class="like-btn ${liked?'liked':''}" data-act="like" data-key="${key}">❤️ ${LANG==='zh'?'我也去过':'me too'} · ${count}</button>
+        <button class="cmt-btn ${open?'on':''}" data-act="toggle" data-key="${key}">💬 ${cmts.length}</button>
+      </div>
+      <div class="cmt-box ${open?'show':''}" data-cmt-box="${escapeAttr(key)}">
+        <div class="cmt-list">
+          ${cmts.length ? cmts.slice().reverse().map(it=>{
+            const who = it.anon ? (LANG==='zh'?'路过的客人':'Anonymous') : (it.name || (LANG==='zh'?'无名氏':'Anonymous'));
+            const badge = it.anon ? `<span class="badge">${LANG==='zh'?'匿名':'ANON'}</span>` : '';
+            const t = new Date(it.ts);
+            const when = `${t.getMonth()+1}/${t.getDate()} ${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')}`;
+            return `<div class="cmt-item"><span class="who">${escapeHtml(who)}${badge}</span><span class="when">${when}</span><div>${escapeHtml(it.text)}</div></div>`;
+          }).join('') : `<div class="cmt-empty">${LANG==='zh'?'还没人留言,做第一个 ✨':'No notes yet — be the first ✨'}</div>`}
+        </div>
+        <form class="cmt-form" data-cmt-form="${escapeAttr(key)}">
+          <div class="row1">
+            <input type="text" maxlength="20" data-cmt-name placeholder="${LANG==='zh'?'昵称(可空)':'Nickname (optional)'}" />
+            <label class="anon"><input type="checkbox" data-cmt-anon /> ${LANG==='zh'?'匿名':'Anon'}</label>
+          </div>
+          <textarea maxlength="200" required data-cmt-text placeholder="${LANG==='zh'?'对这个地方说点什么...':'Say something about this place...'}"></textarea>
+          <div class="send-row">
+            <span><span data-cmt-left>200</span> ${LANG==='zh'?'字以内':'chars left'}</span>
+            <button type="submit" class="send-btn">${LANG==='zh'?'扔进瓶子':'SEND'}</button>
+          </div>
+        </form>
+      </div>
+    </article>`;
+  }).join('');
+
+  // 点赞
+  grid.querySelectorAll('[data-act="like"]').forEach(b=>b.addEventListener('click',()=>{
+    const key = b.dataset.key;
+    if(STORE.myLikes[key]){
+      STORE.likes[key] = Math.max(0,(STORE.likes[key]||1)-1);
+      delete STORE.myLikes[key];
+    } else {
+      STORE.likes[key] = (STORE.likes[key]||0)+1;
+      STORE.myLikes[key] = true;
+    }
+    lsSet('likes',STORE.likes); lsSet('myLikes',STORE.myLikes);
+    renderPlaces(); updatePlacesStats();
+  }));
+
+  // 展开/收起留言区
+  grid.querySelectorAll('[data-act="toggle"]').forEach(b=>b.addEventListener('click',()=>{
+    const key = b.dataset.key;
+    if(STORE.openCmt[key]) delete STORE.openCmt[key]; else STORE.openCmt[key] = true;
+    renderPlaces();
+  }));
+
+  // 字数计数 + 提交
+  grid.querySelectorAll('.cmt-form').forEach(form=>{
+    const ta = form.querySelector('[data-cmt-text]');
+    const left = form.querySelector('[data-cmt-left]');
+    ta.addEventListener('input',()=>left.textContent = 200 - ta.value.length);
+    form.addEventListener('submit',e=>{
+      e.preventDefault();
+      const key = form.getAttribute('data-cmt-form');
+      const text = ta.value.trim(); if(!text) return;
+      const anon = form.querySelector('[data-cmt-anon]').checked;
+      const name = form.querySelector('[data-cmt-name]').value.trim();
+      const item = {name: anon?'':name, anon, text, ts: Date.now()};
+      if(!STORE.comments[key]) STORE.comments[key] = [];
+      STORE.comments[key].push(item);
+      lsSet('comments',STORE.comments);
+      STORE.openCmt[key] = true; // 保持展开
+      renderPlaces(); updatePlacesStats();
+    });
+  });
+}
+function updatePlacesStats(){
+  let visited=0,total=0,msgs=0;
+  Object.values(window.PLACES).forEach(arr=>arr.forEach(p=>{if(p.visited)visited++}));
+  Object.values(STORE.likes).forEach(c=>total+=c);
+  Object.values(STORE.comments).forEach(arr=>msgs+=arr.length);
+  document.getElementById('visitedCount').textContent = visited;
+  document.getElementById('totalLikes').textContent = total;
+  document.getElementById('msgCount').textContent = msgs;
+}
+renderRegionTabs();renderPlaces();updatePlacesStats();
+
+function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function escapeAttr(s){return String(s).replace(/"/g,'&quot;')}
+
+/* ============================================================
+   3) AI 算命
+============================================================ */
+const FORTUNE_API = '/api/fortune'; // 你的后端,见 api-fortune.js
+document.getElementById('fortuneBtn').addEventListener('click',async ()=>{
+  const birth = document.getElementById('fBirth').value;
+  const sign = document.getElementById('fSign').value;
+  const mood = document.getElementById('fMood').value;
+  const out = document.getElementById('fortuneResult');
+  out.textContent = LANG==='zh' ? '🔮 宇宙正在洗牌中...' : '🔮 Shuffling the universe...';
+
+  try{
+    const res = await fetch(FORTUNE_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({birth,sign,mood,lang:LANG})});
+    if(!res.ok) throw new Error('http '+res.status);
+    const data = await res.json();
+    out.textContent = data.reply || '(empty)';
+  }catch(err){
+    // 后端没起的时候,本地兜底:用模板生成一段
+    out.textContent = localFortune(birth,sign,mood);
+  }
+});
+function localFortune(birth,sign,mood){
+  const blessings = LANG==='zh'
+    ? ['今天适合：用一杯冰美式打开早晨。','宇宙提示：暂时离开手机 30 分钟,会有惊喜。','别和电梯里那个看起来很急的人对视。','下午 3 点会想起一件忘了做的事 —— 现在写下来。','幸运色:芒果黄。幸运数字:7。']
+    : ['Lucky pick: open the day with iced americano.','Sign from the universe: leave your phone for 30 mins.','Avoid eye contact with someone in a hurry in the elevator.','At 3pm you\'ll remember something forgotten — note it now.','Lucky color: mango. Lucky number: 7.'];
+  const moodLine = LANG==='zh' ? `心情「${mood}」会在傍晚转向轻盈。` : `Your mood "${mood}" will lighten by dusk.`;
+  return `${LANG==='zh'?'⭐ 小姜的赛博占卜':'⭐ Cyber Fortune'}\n\n${moodLine}\n\n${blessings[Math.floor(Math.random()*blessings.length)]}\n${blessings[Math.floor(Math.random()*blessings.length)]}\n\n${LANG==='zh'?'(后端没接的兜底版本,接上 LLM 后会更准 🔮)':'(Fallback. Plug in the LLM backend for real magic.)'}`;
+}
+
+/* ============================================================
+   4) 喝水插件 demo modal
+============================================================ */
+const waterModal = document.getElementById('waterModal');
+document.getElementById('openWaterDemo').addEventListener('click',()=>waterModal.classList.add('show'));
+document.getElementById('closeWaterModal').addEventListener('click',()=>waterModal.classList.remove('show'));
+document.getElementById('saveWater').addEventListener('click',()=>{waterModal.classList.remove('show');alert(LANG==='zh'?'(假装)已保存 ✅':'(Pretend) Saved ✅')});
+waterModal.addEventListener('click',e=>{if(e.target===waterModal)waterModal.classList.remove('show')});
+
+function updateWaterPreview(){
+  const interval = +document.getElementById('wInterval').value;
+  const ml = +document.getElementById('wMl').value;
+  const goal = +document.getElementById('wGoal').value;
+  const start = document.getElementById('wStart').value;
+  const end = document.getElementById('wEnd').value;
+  const times = Math.ceil(goal/ml);
+  const txt = LANG==='zh'
+    ? `今天会被提醒 ${times} 次,每次 ${ml}ml,每 ${interval} 分钟一次。免打扰:${start}–${end}。`
+    : `${times} reminders today, ${ml}ml each, every ${interval} min. Quiet: ${start}–${end}.`;
+  document.getElementById('wPreview').textContent = '💧 ' + txt;
+}
+['wInterval','wMl','wGoal','wStart','wEnd'].forEach(id=>document.getElementById(id).addEventListener('input',updateWaterPreview));
+updateWaterPreview();
+
+/* ============================================================
+   4b) 其他插件弹窗 —— 通用打开/关闭
+============================================================ */
+function bindModal(triggerId, modalId, closeId){
+  const m = document.getElementById(modalId);
+  if(!m) return;
+  const t = document.getElementById(triggerId);
+  if(t) t.addEventListener('click', e=>{ e.preventDefault(); m.classList.add('show'); });
+  const c = document.getElementById(closeId);
+  if(c) c.addEventListener('click', ()=>m.classList.remove('show'));
+  m.addEventListener('click', e=>{ if(e.target===m) m.classList.remove('show'); });
+}
+bindModal('openWaterDl',   'waterDlModal',   'closeWaterDl');
+bindModal('openWaterGuide','waterGuideModal','closeWaterGuide');
+bindModal('openTabDemo',   'tabDemoModal',   'closeTabDemo');
+bindModal('openTabDl',     'tabDlModal',     'closeTabDl');
+bindModal('openTabGuide',  'tabGuideModal',  'closeTabGuide');
+
+/* ============================================================
+   5) WeChat QR modal
+============================================================ */
+const qrModal = document.getElementById('qrModal');
+document.getElementById('openWechatQR').addEventListener('click',()=>qrModal.classList.add('show'));
+document.getElementById('closeQR').addEventListener('click',()=>qrModal.classList.remove('show'));
+qrModal.addEventListener('click',e=>{if(e.target===qrModal)qrModal.classList.remove('show')});
+
+/* ============================================================
+   6) Chat —— 留言瓶 + 转发到微信公众号
+   注:用 IIFE 包裹,任何前面环节挂了也不影响 chat
+============================================================ */
+(function setupChat(){
+  const CHAT_CONFIG = {
+    endpoint: '/api/chat',
+    systemPrompt: `You are "AI-Jiang", the friendly AI front-desk of Jiang — owner of "Jiang's Living Room".
+Persona: warm, witty, brief. Match user's language.
+Goal: chat naturally, then nudge user to leave their email or follow WeChat OA "小姜的客厅" so Jiang can reply personally.
+About Jiang: PM at a big tech (n=5.5), tinkers with AI side projects on weekends — restaurant-picker bot, Chrome extensions, this living room.
+Always remind the user (gently, once) that their message will be forwarded to Jiang's WeChat.`
+  };
+  const fab = document.getElementById('chatFab');
+  const panel = document.getElementById('chatPanel');
+  const closeBtn = document.getElementById('chatClose');
+  const chatBody = document.getElementById('chatBody');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const openHero = document.getElementById('openChatHero');
+  const bentoChat = document.getElementById('bentoChat');
+  if(!fab || !panel){ console.warn('chat: missing DOM'); return; }
+
+  function openChat(){ panel.classList.add('open'); setTimeout(()=>chatInput && chatInput.focus(), 250); }
+  function closeChat(){ panel.classList.remove('open'); }
+
+  fab.addEventListener('click', ()=> panel.classList.contains('open') ? closeChat() : openChat());
+  if(closeBtn) closeBtn.addEventListener('click', closeChat);
+  if(openHero) openHero.addEventListener('click', e=>{ e.preventDefault(); openChat(); });
+  if(bentoChat) bentoChat.addEventListener('click', e=>{ e.preventDefault(); openChat(); });
+
+  // 兜底 UUID(老浏览器 / file:// 下 crypto.randomUUID 不一定可用)
+  function uuid(){
+    try{ if(crypto && crypto.randomUUID) return crypto.randomUUID(); }catch(_){}
+    return 'sid-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+  }
+  function getSid(){
+    let s = localStorage.getItem('sid');
+    if(!s){ s = uuid(); localStorage.setItem('sid', s); }
+    return s;
+  }
+
+  const history = [];
+  function addMsg(role, text, opts={}){
+    const div = document.createElement('div');
+    div.className = 'msg ' + (role==='user'?'user':'bot') + (opts.typing?' typing':'') + (opts.system?' system':'');
+    div.textContent = text;
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    return div;
+  }
+  async function sendToServer(userText){
+    const res = await fetch(CHAT_CONFIG.endpoint, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        messages: [{role:'system', content:CHAT_CONFIG.systemPrompt}, ...history, {role:'user', content:userText}],
+        lang: (typeof LANG!=='undefined'?LANG:'zh'),
+        forwardToWechat: true,
+        sessionId: getSid()
+      })
+    });
+    if(!res.ok) throw new Error('http '+res.status);
+    return await res.json();
+  }
+  // 本地兜底应答(后端没接 / 不可达时)
+  function localReply(text){
+    const L = (typeof LANG!=='undefined'?LANG:'zh');
+    const lines = L==='zh'
+      ? ['收到啦,小姜本人晚点会从微信看到这条 ✨','谢谢你来逛 —— 你的话我先记下了,小姜回头会回。','嘿,我是 AI 前台,真人在写代码 / 选餐厅。给我留个邮箱或微信,他能直接找到你。','哈哈这话听到了,转给小姜本人 👌']
+      : ['Got it — Jiang will see this on his WeChat later ✨',"Thanks for stopping by. Noted, he'll follow up.","Hey, I'm the AI front-desk. The real Jiang is coding / picking restaurants. Drop your email or WeChat so he can reach you.",'Heard you 👌 Forwarded to him.'];
+    return lines[Math.floor(Math.random()*lines.length)];
+  }
+
+  if(chatForm){
+    chatForm.addEventListener('submit', async e=>{
+      e.preventDefault();
+      const text = chatInput.value.trim(); if(!text) return;
+      chatInput.value = '';
+      addMsg('user', text);
+      history.push({role:'user', content:text});
+      const sendBtn = chatForm.querySelector('button');
+      if(sendBtn) sendBtn.disabled = true;
+      const typingMsg = (I18N && I18N[LANG] && I18N[LANG]['chat.thinking']) || 'Thinking...';
+      const typing = addMsg('bot', typingMsg, {typing:true});
+      try{
+        const data = await sendToServer(text);
+        typing.remove();
+        const reply = (data && data.reply) || localReply(text);
+        addMsg('bot', reply);
+        history.push({role:'assistant', content:reply});
+        if(data && data.forwarded){
+          addMsg('bot', I18N[LANG]['chat.forwarded'], {system:true});
+        }
+      }catch(err){
+        typing.remove();
+        // 后端没起 → 走本地兜底应答,而不是抛错把弹窗体验毁掉
+        const reply = localReply(text);
+        addMsg('bot', reply);
+        history.push({role:'assistant', content:reply});
+        const note = (LANG==='zh'?'(暂时是离线兜底回复,后端接上 /api/chat 就会同步到我微信)':'(Local fallback reply. Plug in /api/chat to forward to my WeChat.)');
+        addMsg('bot', note, {system:true});
+      }finally{
+        if(sendBtn) sendBtn.disabled = false;
+        if(chatInput) chatInput.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
