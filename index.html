@@ -1183,36 +1183,39 @@ function getZodiacFromBirth(birthStr) {
   return { name: 'capricorn', zh: '♑ 摩羯', en: 'Capricorn' };
 }
 
-const fSignDisplay = document.getElementById('fSignDisplay');
-const fBirthInput = document.getElementById('fBirth');
-
-// 默认今天
-const today = new Date();
-const pad = n => String(n).padStart(2, '0');
-fBirthInput.value = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
-
-// 初始化星座显示（主动调用一次）
+// 同步星座（每次实时查找最新 DOM 节点，避免 applyI18n 替换 input 后引用失效）
 function syncZodiacFromBirth() {
+  const fBirthInput = document.getElementById('fBirth');  // 实时查找，不缓存
+  const fSignDisplay = document.getElementById('fSignDisplay'); // 同上
+  if (!fBirthInput || !fSignDisplay) return;
   const zodiac = getZodiacFromBirth(fBirthInput.value);
   fSignDisplay.dataset.sign = zodiac.name;
   fSignDisplay.dataset.zh = zodiac.zh;
   fSignDisplay.dataset.en = zodiac.en;
   fSignDisplay.textContent = LANG === 'zh' ? zodiac.zh : zodiac.en;
 }
-syncZodiacFromBirth(); // 立即执行，不要等 applyI18n
 
-// 语言切换时重绘星座
+// 默认今天（同样实时查找节点）
+const today = new Date();
+const pad = n => String(n).padStart(2, '0');
+const initBirth = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+(function initBirthAndZodiac() {
+  const fBirthInput = document.getElementById('fBirth');
+  if (!fBirthInput) return;
+  fBirthInput.value = initBirth;
+  syncZodiacFromBirth();
+})();
+
+// 语言切换时重绘星座（猴子补丁）
 const _applyI18n = applyI18n;
 applyI18n = function() {
   _applyI18n();
   syncZodiacFromBirth();
 };
 
-// 监听日期变化（MutationObserver 更可靠，兼容所有浏览器 date picker）
-new MutationObserver(() => syncZodiacFromBirth()).observe(fBirthInput, { attributes: true, attributeFilter: ['value'] });
-// input/change 作为备用
-fBirthInput.addEventListener('input', syncZodiacFromBirth);
-fBirthInput.addEventListener('change', syncZodiacFromBirth);
+// 监听日期变化（用 event delegation，始终监听 document 层级，最可靠）
+document.addEventListener('input', e => { if (e.target && e.target.id === 'fBirth') syncZodiacFromBirth(); });
+document.addEventListener('change', e => { if (e.target && e.target.id === 'fBirth') syncZodiacFromBirth(); });
 
 /* ============================================================
    4) AI 算命 — 按钮逻辑
