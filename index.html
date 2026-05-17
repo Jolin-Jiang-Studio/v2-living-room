@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" />
-<title data-i18n="title">小姜的网络客厅 · Jiang's Living Room</title>
+<title data-i18n="title">小姜的网络客厅 · Jolin's Living Room</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Bowlby+One&family=ZCOOL+KuaiLe&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -848,7 +848,7 @@ const I18N = {
   zh:{
     'nav.about':'关于','nav.map':'地图','nav.projects':'小工具','nav.lab':'实验室','nav.contact':'联系',
     'logo.brand':'小姜','logo.suffix':'的网络客厅',
-    'title':'小姜的网络客厅 · Jiang\'s Living Room',
+    'title':'小姜的网络客厅 · Jolin\'s Living Room',
     'hero.greet':'推门进来 · 别客气',
     'hero.title':'这里是<br/><em>小姜</em>的<br/>网络客厅。',
     'hero.sub':'这里不是简历,也不是作品集 —— 只是我在互联网上的<b>一间小房子</b>。<br/>放了一些自己写的小工具、去过的地方、稀奇古怪的实验。<br/>欢迎随便逛、随便点、有话想说就<b>留言</b>给我 :)',
@@ -925,10 +925,10 @@ const I18N = {
   },
   en:{
     'nav.about':'About','nav.map':'Map','nav.projects':'Tools','nav.lab':'Lab','nav.contact':'Contact',
-    'logo.brand':"Jiang's",'logo.suffix':' Living Room',
-    'title':"Jiang's Living Room",
+    'logo.brand':"Jolin's",'logo.suffix':' Living Room',
+    'title':"Jolin's Living Room",
     'hero.greet':'Push the door · come in',
-    'hero.title':"Welcome to<br/><em>Jiang's</em><br/>living room.",
+    'hero.title':"Welcome to<br/><em>Jolin's</em><br/>living room.",
     'hero.sub':"Not a resume, not a portfolio — just <b>a little house</b> I built on the internet.<br/>Some tools I wrote, places I've been, weird experiments I made.<br/>Wander around. Click stuff. <b>Drop me a note</b> if you'd like :)",
     'hero.cta1':'See my little tools','hero.cta2':'Wander the lab','hero.cta3':'Leave me a note',
     'status.title':'// room status','status.k1':'currently','status.v1':'Shanghai · coding',
@@ -964,13 +964,13 @@ const I18N = {
     'contact.lead':"Favorite way: WeChat OA — I reply on subway rides and in cafés. Code stuff on GitHub, formal stuff via email.",
     'contact.mail.note':'Best for business / reply in 24h · 576371467@qq.com',
     'contact.wechat.t':'WeChat Official Account','contact.wechat.note':"Follow 「小姜鸭写字还要起名」 → DM in backend → I'll reply",
-    'footer':"© 2026 Jiang's Living Room · Built with ☕ + 🤪 vibes",
+    'footer':"© 2026 Jolin's Living Room · Built with ☕ + 🤪 vibes",
     'chat.title':'💌 Note Bottle',
     'chat.tip':"Messages go through <b>WeChat OA 「小姜鸭写字还要起名」</b> to my WeChat — I'll reply via the OA backend. Or just leave your email here.",
-    'chat.welcome':"Hey, I'm Jiang's AI front-desk. Tell me anything — I'll forward it to him :)",
+    'chat.welcome':"Hey, I'm Jolin's AI front-desk. Tell me anything — I'll forward it to him :)",
     'chat.placeholder':'Say something...','chat.send':'SEND',
     'chat.error':'⚠️ Service is offline. Try later.','chat.thinking':'Thinking...',
-    'chat.forwarded':"☑ Forwarded to Jiang's WeChat. He'll reply via the OA backend.",
+    'chat.forwarded':"☑ Forwarded to Jolin's WeChat. He'll reply via the OA backend.",
     'water.t':'Hydration · Settings','water.lead':"Live preview of the in-Chrome panel. Tweak and see today's reminder plan below.",
     'water.l1':'Interval','water.l2':'ml per time','water.l3':'Daily goal','water.l4':'Quiet from','water.l5':'Quiet until',
     'water.interval.30':'Every 30 min','water.interval.45':'Every 45 min','water.interval.60':'Every 60 min','water.interval.90':'Every 90 min',
@@ -1309,11 +1309,11 @@ qrModal.addEventListener('click',e=>{if(e.target===qrModal)qrModal.classList.rem
 (function setupChat(){
   const CHAT_CONFIG = {
     endpoint: 'https://message-bottle.vercel.app/api/chat',
-    systemPrompt: `You are "AI-Jiang", the friendly AI front-desk of Jiang — owner of "Jiang's Living Room".
+    systemPrompt: `You are "AI-Jolin", the friendly AI front-desk of Jolin — owner of "Jolin's Living Room".
 Persona: warm, witty, brief. Match user's language.
-Goal: chat naturally, then nudge user to leave their email or follow WeChat OA "小姜的客厅" so Jiang can reply personally.
-About Jiang: PM at a big tech (n=5.5), tinkers with AI side projects on weekends — restaurant-picker bot, Chrome extensions, this living room.
-Always remind the user (gently, once) that their message will be forwarded to Jiang's WeChat.`
+Goal: chat naturally, then nudge user to leave their email or follow WeChat OA "小姜的客厅" so Jolin can reply personally.
+About Jolin: PM at a big tech (n=5.5), tinkers with AI side projects on weekends — restaurant-picker bot, Chrome extensions, this living room.
+Always remind the user (gently, once) that their message will be forwarded to Jolin's WeChat.`
   };
   const fab = document.getElementById('chatFab');
   const panel = document.getElementById('chatPanel');
@@ -1371,7 +1371,7 @@ Always remind the user (gently, once) that their message will be forwarded to Ji
     const L = (typeof LANG!=='undefined'?LANG:'zh');
     const lines = L==='zh'
       ? ['收到啦,小姜本人晚点会从微信看到这条 ✨','谢谢你来逛 —— 你的话我先记下了,小姜回头会回。','嘿,我是 AI 前台,真人在写代码 / 选餐厅。给我留个邮箱或微信,他能直接找到你。','哈哈这话听到了,转给小姜本人 👌']
-      : ['Got it — Jiang will see this on his WeChat later ✨',"Thanks for stopping by. Noted, he'll follow up.","Hey, I'm the AI front-desk. The real Jiang is coding / picking restaurants. Drop your email or WeChat so he can reach you.",'Heard you 👌 Forwarded to him.'];
+      : ['Got it — Jolin will see this on his WeChat later ✨',"Thanks for stopping by. Noted, he'll follow up.","Hey, I'm the AI front-desk. The real Jolin is coding / picking restaurants. Drop your email or WeChat so he can reach you.",'Heard you 👌 Forwarded to him.'];
     return lines[Math.floor(Math.random()*lines.length)];
   }
 
