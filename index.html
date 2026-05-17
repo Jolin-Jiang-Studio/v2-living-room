@@ -1208,7 +1208,9 @@ applyI18n = function() {
   syncZodiacFromBirth();
 };
 
-// 监听日期变化（input 每次按键变化，change 失去焦点时）
+// 监听日期变化（MutationObserver 更可靠，兼容所有浏览器 date picker）
+new MutationObserver(() => syncZodiacFromBirth()).observe(fBirthInput, { attributes: true, attributeFilter: ['value'] });
+// input/change 作为备用
 fBirthInput.addEventListener('input', syncZodiacFromBirth);
 fBirthInput.addEventListener('change', syncZodiacFromBirth);
 
