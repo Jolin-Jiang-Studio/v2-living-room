@@ -1238,7 +1238,7 @@ qrModal.addEventListener('click',e=>{if(e.target===qrModal)qrModal.classList.rem
 ============================================================ */
 (function setupChat(){
   const CHAT_CONFIG = {
-    endpoint: '/api/chat',
+    endpoint: 'https://message-bottle.vercel.app/api/chat',
     systemPrompt: `You are "AI-Jiang", the friendly AI front-desk of Jiang — owner of "Jiang's Living Room".
 Persona: warm, witty, brief. Match user's language.
 Goal: chat naturally, then nudge user to leave their email or follow WeChat OA "小姜的客厅" so Jiang can reply personally.
