@@ -1,0 +1,9 @@
+name = "message-bottle"
+compatibility_date = "2024-01-01"
+
+[vars]
+LANG = "zh"
+
+# 环境变量在 Cloudflare Dashboard → Workers & Pages → Settings 中设置
+# SERVERCHAN_SENDKEY - Server酱 SendKey
+# DEEPSEEK_API_KEY - DeepSeek API Key
