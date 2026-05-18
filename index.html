@@ -1225,7 +1225,7 @@ document.addEventListener('change', e => { if (e.target && e.target.id === 'fBir
 /* ============================================================
    4) AI 算命 — 按钮逻辑
 ============================================================ */
-const FORTUNE_API = 'https://1434289296-j6xekvim7v.ap-guangzhou.tencentscf.com/api/fortune';
+const FORTUNE_API = 'https://1434289296-4rspv68mt.ap-guangzhou.tencentscf.com/api/fortune';
 document.getElementById('fortuneBtn').addEventListener('click',async ()=>{
   const birth = document.getElementById('fBirth').value;
   const sign = document.getElementById('fSignDisplay').dataset.sign || '';
@@ -1307,7 +1307,7 @@ qrModal.addEventListener('click',e=>{if(e.target===qrModal)qrModal.classList.rem
 ============================================================ */
 (function setupChat(){
   const CHAT_CONFIG = {
-    endpoint: 'https://1434289296-j6xekvim7v.ap-guangzhou.tencentscf.com/api/chat',
+    endpoint: 'https://1434289296-4rspv68mt.ap-guangzhou.tencentscf.com/api/chat',
     systemPrompt: `You are "AI-Jolin", the friendly AI front-desk of Jolin — owner of "Jolin's Living Room".
 Persona: warm, witty, brief. Match user's language.
 Goal: chat naturally, then nudge user to leave their email or follow WeChat OA "小姜的客厅" so Jolin can reply personally.
